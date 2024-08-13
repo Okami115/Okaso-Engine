@@ -153,6 +153,9 @@
   <ItemGroup>
     <ClCompile Include="src\BaseGame\BaseGame.cpp" />
     <ClCompile Include="src\BaseGame\main.cpp" />
+    <ClCompile Include="src\Entity\Entity.cpp" />
+    <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
+    <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -232,7 +235,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BaseGame\BaseGame.h" />
+    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
+    <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Utils\Utils.h" />
     <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
