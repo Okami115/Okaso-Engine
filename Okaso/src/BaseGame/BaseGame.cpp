@@ -17,13 +17,19 @@ void Okaso_Engine::initGame()
         return;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = new Window(640, 480, "Okaso_Engine", NULL, NULL);
+    window = new Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
+
+    if (glewInit() != GLEW_OK)
+    {
+        cout << "GLEW::FAIL::INIT" << endl;
+    }
 
     if (!window)
     {
         glfwTerminate();
         return;
     }
+
     renderer = new Renderer(window);
 }
 
