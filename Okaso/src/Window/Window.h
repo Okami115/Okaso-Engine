@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include <glfw3.h>
+#include "../../libs/GLEW/Include/glew.h"
+#include "../../libs/GLFW/Include/glfw3.h"
 
 class Window
 {

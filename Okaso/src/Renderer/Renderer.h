@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
-#include "glfw3.h"
+#include "../../libs/GLEW/Include/glew.h"
+#include "../../libs/GLFW/Include/glfw3.h"
 #include "../Window/Window.h"
 
 using namespace std;
@@ -15,6 +16,8 @@ public:
     void SetWindow(Window* window);
     void Setbitfield(GLbitfield mask);
     GLbitfield Getbitfield();
+    void DrawTriangle();
+    void InitTriangle();
 private:
     Window* GLFWW;
     GLbitfield mask;
