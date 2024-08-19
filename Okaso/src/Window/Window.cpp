@@ -1,52 +1,42 @@
-﻿#include "window.h"
+﻿#include <iostream>
 
-Window::Window(int width,int height, const char* title, GLFWmonitor* monitor,GLFWwindow* share)
-{
-    this->width = width;
-    this->height = height;
-    this->title = title;
-    this->monitor = monitor;
-    this->share = share;
-    initWindow();
-}
-Window::Window(int width,int height, const char* title)
-{
-    this->width = width;
-    this->height = height;
-    this->title = title;
-    this->monitor = NULL;
-    this->share = NULL;
-    initWindow();
-}
-Window::Window(int width,int height)
-{
-    this->width = width;
-    this->height = height;
-    this->title = "Hello World!";
-    this->monitor = NULL;
-    this->share = NULL;
-    initWindow();
-}
+#include "window.h"
 
-Window::~Window()
+namespace OkasoEngine_Window
 {
-    destroyWindow();
-}
+    
+    Window::Window(int width,int height, const char* title, GLFWmonitor* monitor,GLFWwindow* share)
+    {
+        this->width = width;
+        this->height = height;
+        this->title = title;
+        this->monitor = monitor;
+        this->share = share;
+        initWindow();
+    }
 
-void Window::initWindow()
-{
-    this->GlfWindow = glfwCreateWindow(width, height, title, monitor, share);
+    Window::~Window()
+    {
+        destroyWindow();
+    }
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(GlfWindow);
-}
+    void Window::initWindow()
+    {
+        this->GlfWindow = glfwCreateWindow(width, height, title, monitor, share);
 
-void Window::destroyWindow()
-{
-	
+        /* Make the window's context current */
+        glfwMakeContextCurrent(GlfWindow);
+        std::cout << "Window Created" << std::endl;
+    }
+
+    void Window::destroyWindow()
+    {
+        std::cout << "Window Destroyed" << std::endl;
+    }
+
+    GLFWwindow* Window::getWindow()
+    {
+        return GlfWindow;
+    }
 }
 
-GLFWwindow* Window::getWindow()
-{
-    return GlfWindow;
-}

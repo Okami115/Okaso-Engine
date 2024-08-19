@@ -9,8 +9,8 @@ public:
     ~Okaso_Engine();
     void gameLoop();
 private:
-    Renderer* renderer;
-    Window* window;
+    OkasoEngine_Render::Renderer* renderer;
+    OkasoEngine_Window::Window* window;
     void initGame();
     void endGame();
 };

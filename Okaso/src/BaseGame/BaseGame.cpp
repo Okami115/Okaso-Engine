@@ -17,7 +17,7 @@ void Okaso_Engine::initGame()
         return;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = new Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
+    window = new OkasoEngine_Window::Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
 
     if (glewInit() != GLEW_OK)
     {
@@ -30,7 +30,7 @@ void Okaso_Engine::initGame()
         return;
     }
 
-    renderer = new Renderer(window);
+    renderer = new OkasoEngine_Render::Renderer(window);
 }
 
 void Okaso_Engine::gameLoop()
