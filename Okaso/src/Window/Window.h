@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../../libs/GLEW/Include/glew.h"
 #include "../../libs/GLFW/Include/glfw3.h"
-
+#include "../Utils/Utils.h"
 namespace OkasoEngine_Window
 {
 #pragma region Default Values For Window creation

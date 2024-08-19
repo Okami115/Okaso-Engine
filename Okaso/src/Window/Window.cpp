@@ -1,7 +1,4 @@
-﻿#include <iostream>
-
-#include "window.h"
-
+﻿#include "window.h"
 namespace OkasoEngine_Window
 {
     

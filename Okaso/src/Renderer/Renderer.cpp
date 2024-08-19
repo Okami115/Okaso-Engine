@@ -1,5 +1,4 @@
 ﻿#include "renderer.h"
-
 namespace OkasoEngine_Render
 {
     Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
