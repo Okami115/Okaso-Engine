@@ -6,13 +6,13 @@ namespace OkasoEngine_Render
     {
         this->GLFWW = window;
         this->mask = mask;
-        OkasoDebuger::_debuger->OkasoDebug("Renderer Created",OkasoEngine_Utilities::Info_L);
+        OkasoDebuger::_debuger->OKE_Debug("Renderer Created",Info_L);
         InitTriangle();
     }
 
     Renderer::~Renderer()
     {
-        OkasoDebuger::_debuger->OkasoDebug("Renderer Deleted",OkasoEngine_Utilities::Info_L);
+        OkasoDebuger::_debuger->OKE_Debug("Renderer Deleted",Info_L);
     }
 
     void Renderer::RenderScreen() 

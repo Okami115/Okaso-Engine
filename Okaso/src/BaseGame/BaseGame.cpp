@@ -3,7 +3,7 @@ using namespace OkasoEngine_Utilities;
 Okaso_Engine::Okaso_Engine()
 {
     OkasoDebuger::_debuger->OkasoDebugerSetActive(true);
-    OkasoDebuger::_debuger->OkasoDebug("Init Debugger",LogPriority::Info_L);
+    OkasoDebuger::_debuger->OKE_Debug("Init Debugger",LogPriority::Info_L);
     initGame();
 }
 

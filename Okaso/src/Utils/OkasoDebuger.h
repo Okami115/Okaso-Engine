@@ -9,7 +9,7 @@ namespace OkasoEngine_Utilities
     class OkasoDebuger
     {
     public:
-        static void OkasoDebug(string msg,LogPriority priority);
+        static void OKE_Debug(string msg,LogPriority priority = Debug_L);
         static void OkasoDebugerSetActive(bool state);
         static OkasoDebuger* _debuger;
         
