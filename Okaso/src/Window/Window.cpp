@@ -1,4 +1,5 @@
 ﻿#include "window.h"
+using namespace OkasoEngine_Utilities;
 namespace OkasoEngine_Window
 {
     
@@ -23,12 +24,12 @@ namespace OkasoEngine_Window
 
         /* Make the window's context current */
         glfwMakeContextCurrent(GlfWindow);
-        std::cout << "Window Created" << std::endl;
+        OkasoDebuger::_debuger->OkasoDebug("Window Created",OkasoEngine_Utilities::Info_L);
     }
 
     void Window::destroyWindow()
     {
-        std::cout << "Window Destroyed" << std::endl;
+        OkasoDebuger::_debuger->OkasoDebug("Window Destroyed",OkasoEngine_Utilities::Info_L);
     }
 
     GLFWwindow* Window::getWindow()

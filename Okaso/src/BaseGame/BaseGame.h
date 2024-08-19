@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
-
+#include "../Utils/Utils.h"
 class Okaso_Engine
 {
 public:

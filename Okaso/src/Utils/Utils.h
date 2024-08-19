@@ -1,5 +1,6 @@
 #pragma once
-#include <iostream>
+#include "OkasoDebuger.h"
+
 namespace OkasoEngine_Utilities
 {
 #pragma region Default Values For Position,UV,Color && Vertex creation
@@ -7,7 +8,6 @@ namespace OkasoEngine_Utilities
 	static const float DEFAULT_UV = 0.0f;
 	static const float DEFAULT_POS = 0.0f;
 #pragma endregion
-
 	struct position
 	{
 		float x;

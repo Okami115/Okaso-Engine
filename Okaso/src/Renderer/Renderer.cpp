@@ -1,18 +1,18 @@
 ﻿#include "renderer.h"
+using namespace OkasoEngine_Utilities;
 namespace OkasoEngine_Render
 {
     Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
     {
         this->GLFWW = window;
         this->mask = mask;
-        cout << "Renderer Created" << endl;
-
+        OkasoDebuger::_debuger->OkasoDebug("Renderer Created",OkasoEngine_Utilities::Info_L);
         InitTriangle();
     }
 
     Renderer::~Renderer()
     {
-        cout << "Renderer Deleted" << endl;
+        OkasoDebuger::_debuger->OkasoDebug("Renderer Deleted",OkasoEngine_Utilities::Info_L);
     }
 
     void Renderer::RenderScreen() 

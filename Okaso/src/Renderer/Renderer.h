@@ -2,7 +2,6 @@
 #include "../../libs/GLEW/Include/glew.h"
 #include "../Window/Window.h"
 #include "../Utils/Utils.h"
-using namespace std;
 namespace OkasoEngine_Render
 {
 #pragma region Default Values For Renderer creation
