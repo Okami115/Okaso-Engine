@@ -1,62 +1,64 @@
 #pragma once
-
-static const float DEFAULT_INDEX = 1.0f;
-static const float DEFAULT_UV = 0.0f;
-static const float DEFAULT_POS = 0.0f;
-
-struct position
+namespace OkasoEngine_Utilities
 {
-	float x;
-	float y;
-	float z;
+	static const float DEFAULT_INDEX = 1.0f;
+	static const float DEFAULT_UV = 0.0f;
+	static const float DEFAULT_POS = 0.0f;
 
-	position(float x = DEFAULT_POS, float y = DEFAULT_POS, float z = DEFAULT_POS)
+	struct position
 	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
-	}
-};
+		float x;
+		float y;
+		float z;
 
-struct UV
-{
-	float u;
-	float v;
+		position(float x = DEFAULT_POS, float y = DEFAULT_POS, float z = DEFAULT_POS)
+		{
+			this->x = x;
+			this->y = y;
+			this->z = z;
+		}
+	};
 
-	UV(float u = DEFAULT_UV, float v = DEFAULT_UV)
+	struct UV
 	{
-		this->u = u;
-		this->v = v;
-	}
+		float u;
+		float v;
 
-};
+		UV(float u = DEFAULT_UV, float v = DEFAULT_UV)
+		{
+			this->u = u;
+			this->v = v;
+		}
 
-struct Color
-{
-	float red;
-	float green;
-	float blue;
-	float alpha;
+	};
 
-	Color(float red = DEFAULT_INDEX, float green = DEFAULT_INDEX, float blue = DEFAULT_INDEX, float alpha = DEFAULT_INDEX)
+	struct Color
 	{
-		this->red = red;
-		this->green = green;
-		this->blue = blue;
-		this->alpha = alpha;
-	}
-};
+		float red;
+		float green;
+		float blue;
+		float alpha;
 
-struct Vertex
-{
-	position pos;
-	UV uv;
-	Color color;
+		Color(float red = DEFAULT_INDEX, float green = DEFAULT_INDEX, float blue = DEFAULT_INDEX, float alpha = DEFAULT_INDEX)
+		{
+			this->red = red;
+			this->green = green;
+			this->blue = blue;
+			this->alpha = alpha;
+		}
+	};
 
-	Vertex(position pos = position(), UV uv = UV(), Color color = Color())
+	struct Vertex
 	{
-		this->pos = pos;
-		this->uv = uv;
-		this->color = color;
-	}
-};
+		position pos;
+		UV uv;
+		Color color;
+
+		Vertex(position pos = position(), UV uv = UV(), Color color = Color())
+		{
+			this->pos = pos;
+			this->uv = uv;
+			this->color = color;
+		}
+	};
+}
