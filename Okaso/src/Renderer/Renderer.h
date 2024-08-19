@@ -12,7 +12,7 @@ namespace OkasoEngine_Render
     class Renderer final
     {
     public:
-        Renderer(OkasoEngine_Window::Window* window, GLbitfield mask = DEFAULT_MASK);
+        Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, GLbitfield mask = DEFAULT_MASK);
         ~Renderer();
         void RenderScreen();
         void SetWindow(OkasoEngine_Window::Window* window);
