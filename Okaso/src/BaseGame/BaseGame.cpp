@@ -15,18 +15,20 @@ void Okaso_Engine::initGame()
 {
     /* Initialize the library */
     if (!glfwInit())
+    {
+        OkasoDebuger::OKE_Debug("GLFW::FAIL::INIT",Fatal_L);
         return;
+    }
 
     /* Create a windowed mode window and its OpenGL context */
     window = new OkasoEngine_Window::Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
 
     if (glewInit() != GLEW_OK)
-    {
-        cout << "GLEW::FAIL::INIT" << endl;
-    }
+        OkasoDebuger::OKE_Debug("GLEW::FAIL::INIT",Fatal_L);
 
     if (!window)
     {
+        OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
         glfwTerminate();
         return;
     }
