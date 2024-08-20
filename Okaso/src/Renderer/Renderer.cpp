@@ -1,46 +1,73 @@
 ﻿#include "renderer.h"
-
-Renderer::Renderer(Window* window, GLbitfield mask)
+using namespace OkasoEngine_Utilities;
+namespace OkasoEngine_Render
 {
-    this->GLFWW = window;
-    this->mask = mask;
-    cout << "Renderer Created" << endl;
-}
+    Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
+    {
+        this->GLFWW = window;
+        this->mask = mask;
+        OkasoDebuger::OKE_Debug("Renderer Created",Info_L);
+        InitTriangle();
+    }
 
-Renderer::Renderer(Window* window)
-{
-    this->GLFWW = window;
-    this->mask = GL_COLOR_BUFFER_BIT;
-    cout << "Renderer Created" << endl;
-}
+    Renderer::~Renderer()
+    {
+        OkasoDebuger::OKE_Debug("Renderer Deleted",Info_L);
+    }
 
-Renderer::~Renderer()
-{
-    cout << "Renderer Deleted" << endl;
-}
+    void Renderer::RenderScreen() 
+    {
+        /* Render here */
+        glClear(mask);
 
-void Renderer::RenderScreen() 
-{
-    /* Render here */
-    glClear(mask);
+        DrawTriangle();
 
-    /* Swap front and back buffers */
-    glfwSwapBuffers(GLFWW->getWindow());
+        /* Swap front and back buffers */
+        glfwSwapBuffers(GLFWW->getWindow());
 
-    /* Poll for and process events */
-    glfwPollEvents();
-}
+        /* Poll for and process events */
+        glfwPollEvents();
+    }
 
-void Renderer::SetWindow(Window* window) 
-{
-    GLFWW = window;
-}
-void Renderer::Setbitfield(GLbitfield mask) 
-{
-    this->mask = mask;
-}
+    void Renderer::SetWindow(OkasoEngine_Window::Window* window) 
+    {
+        GLFWW = window;
+    }
+    void Renderer::Setbitfield(GLbitfield mask) 
+    {
+        this->mask = mask;
+    }
 
-GLbitfield Renderer::Getbitfield() 
-{
-    return this->mask;
+    GLbitfield Renderer::Getbitfield() 
+    {
+        return this->mask;
+    }
+
+    void Renderer::DrawTriangle()
+    {
+        glDrawArrays(GL_TRIANGLES, 0, 3.0f);
+    }
+
+    void Renderer::InitTriangle()
+    {
+        float position[6] =
+        {
+            -0.5f, -0.5f,
+            0.0f, 0.5f,
+            0.5f, -0.5f
+        };
+
+        unsigned int buffer;
+        /* glGenBuffers Genera Buffers para que los puedas usar
+        *  El 1 En este caso es por qie solo queremos un buffer para el dibujado del triangulo
+        *  El unsigned int que le pasamos es para asignarle un espacio en memoria para que utilice
+        *  este unsigned int buffer seria como el ID del buffer que vamos a generar
+        */
+        glGenBuffers(1, &buffer);
+        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), position, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 }

@@ -1,11 +1,19 @@
-#include <glfw3.h>
-#include "baseGame.h"
+#include "BaseGame.h"
+#include"../Utils/Utils.h"
 
-int main(void)
+void main()
 {
-    Okaso_Engine* basegame = new Okaso_Engine();
-    basegame->gameLoop();
-    delete basegame;
-   
-    return 0;
+	/*
+	position pos = position(4.5f, 11.0f);
+
+	Vertex aux = Vertex(pos);
+
+	cout << "Position :: " << aux.pos.x << " " << aux.pos.y << " " << aux.pos.z << endl;
+	cout << "UV :: " << aux.uv.u << " " << aux.uv.v << endl;
+	cout << "Color :: " << aux.color.red << " " << aux.color.green << " " << aux.color.blue << " " << aux.color.alpha << endl;
+	*/
+
+	Okaso_Engine* basegame = new Okaso_Engine();
+	basegame->gameLoop();
+	delete basegame;
 }
