@@ -5,7 +5,7 @@
 namespace OkasoEngine_Render
 {
 #pragma region Default Values For Renderer creation
-    static  OkasoEngine_Window::Window* DEFAULT_WINDOW = new OkasoEngine_Window::Window();
+    static  OkasoEngine_Window::Window* DEFAULT_WINDOW = NULL;
     static  GLbitfield DEFAULT_MASK = GL_COLOR_BUFFER_BIT;
 #pragma endregion
     class Renderer final

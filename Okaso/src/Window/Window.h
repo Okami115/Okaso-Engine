@@ -9,22 +9,21 @@ namespace OkasoEngine_Window
     static const int DEFAULT_HEIGHT = 720;
     static const char* DEFAULT_TITLE = "OkasoEngine_Window";
     static  GLFWmonitor* DEFAULT_MONITOR = NULL;
-    static  GLFWwindow* DEFAULT_SHARE = NULL;
+    static  GLFWwindow* DEFAULT_WINDOW = NULL;
 #pragma endregion
     class Window final
     {
     public:
         Window(int width = DEFAULT_WIDTH,int height = DEFAULT_HEIGHT, const char* title = DEFAULT_TITLE
-        , GLFWmonitor* monitor = DEFAULT_MONITOR,GLFWwindow* share = DEFAULT_SHARE);
+        , GLFWmonitor* monitor = DEFAULT_MONITOR,GLFWwindow* window = DEFAULT_WINDOW);
         ~Window();
         GLFWwindow* getWindow();
     private:
-        GLFWwindow* GlfWindow;
         int width;
         int height;
         const char* title;
         GLFWmonitor* monitor;
-        GLFWwindow* share;
+        GLFWwindow* GlfWindow;
         void initWindow();
         void destroyWindow();
     };
