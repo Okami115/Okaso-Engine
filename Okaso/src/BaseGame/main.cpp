@@ -1,9 +1,10 @@
 #include "BaseGame.h"
+#include "Game.h"
 
 void main()
 {
 
-	OkasoEngine_Render::Renderer::GetRenderer();
+	//OkasoEngine_Render::Renderer::GetRenderer();
 	/*
 	position pos = position(4.5f, 11.0f);
 
@@ -14,7 +15,11 @@ void main()
 	cout << "Color :: " << aux.color.red << " " << aux.color.green << " " << aux.color.blue << " " << aux.color.alpha << endl;
 	*/
 
-	Okaso_Engine* basegame = new Okaso_Engine();
+	//Okaso_Engine* basegame = new Okaso_Engine();
+	//basegame->gameLoop();
+	//delete basegame;
+
+	Game* basegame = new Game(800,600);
 	basegame->gameLoop();
 	delete basegame;
 }

@@ -7,17 +7,7 @@ using namespace OkasoEngine_Utilities;
 Okaso_Engine::Okaso_Engine()
 {
     OkasoDebuger::OkasoDebugerSetActive(true);
-
-    float position[6] =
-    {
-        -0.5f, -0.5f,
-        0.0f, 0.5f,
-        0.5f, -0.5f
-    };
-
     initGame(); 
-
-    triangle = new Triangle(position);
 }
 
 Okaso_Engine::~Okaso_Engine()
@@ -36,8 +26,14 @@ void Okaso_Engine::initGame()
     }
 
     /* Create a windowed mode window and its OpenGL context */
-    window = new OkasoEngine_Window::Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
-
+    window = new OkasoEngine_Window::Window();
+    if (!window)
+    {
+        OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
+        endGame();
+        return;
+    }
+    
     if (glewInit() != GLEW_OK)
     {
         OkasoDebuger::OKE_Debug("GLEW::FAIL::INIT",Fatal_L);
@@ -45,14 +41,30 @@ void Okaso_Engine::initGame()
         return;
     }
 
-    if (!window)
+    
+
+    renderer = new OkasoEngine_Render::Renderer(window);
+    if (!renderer)
     {
-        OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
+        OkasoDebuger::OKE_Debug("RENDERER::FAIL::INIT",Fatal_L);
         endGame();
         return;
     }
 
-    renderer = new OkasoEngine_Render::Renderer(window);
+    init();
+}
+
+void Okaso_Engine::update()
+{
+    
+}
+
+void Okaso_Engine::init()
+{
+}
+
+void Okaso_Engine::exit()
+{
 }
 
 void Okaso_Engine::gameLoop()
@@ -60,14 +72,13 @@ void Okaso_Engine::gameLoop()
     while (!glfwWindowShouldClose(window->getWindow()))
     {
         renderer->BeginDrawing();
-
-        triangle->Draw();
-
+        update();
         renderer->EndDrawing();
     }
 }
 
 void Okaso_Engine::endGame()
 {
+    exit();
     glfwTerminate();
 }
