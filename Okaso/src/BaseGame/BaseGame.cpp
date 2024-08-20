@@ -17,6 +17,7 @@ void Okaso_Engine::initGame()
     if (!glfwInit())
     {
         OkasoDebuger::OKE_Debug("GLFW::FAIL::INIT",Fatal_L);
+        endGame();
         return;
     }
 
@@ -24,12 +25,16 @@ void Okaso_Engine::initGame()
     window = new OkasoEngine_Window::Window(640, 480, "Okaso_Engine V1.0 - 130824", NULL, NULL);
 
     if (glewInit() != GLEW_OK)
+    {
         OkasoDebuger::OKE_Debug("GLEW::FAIL::INIT",Fatal_L);
+        endGame();
+        return;
+    }
 
     if (!window)
     {
         OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
-        glfwTerminate();
+        endGame();
         return;
     }
 
