@@ -2,12 +2,13 @@
 using namespace OkasoEngine_Utilities;
 namespace OkasoEngine_Render
 {
+    Renderer* Renderer::rendererInstance = nullptr;
     Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
     {
         this->GLFWW = window;
         this->mask = mask;
+        rendererInstance = this;
         OkasoDebuger::OKE_Debug("Renderer Created",Info_L);
-        InitTriangle();
     }
 
     Renderer::~Renderer()
@@ -15,13 +16,14 @@ namespace OkasoEngine_Render
         OkasoDebuger::OKE_Debug("Renderer Deleted",Info_L);
     }
 
-    void Renderer::RenderScreen() 
+    void Renderer::BeginDrawing()
     {
         /* Render here */
         glClear(mask);
+    }
 
-        DrawTriangle();
-
+    void Renderer::EndDrawing() 
+    {
         /* Swap front and back buffers */
         glfwSwapBuffers(GLFWW->getWindow());
 
@@ -48,15 +50,8 @@ namespace OkasoEngine_Render
         glDrawArrays(GL_TRIANGLES, 0, 3.0f);
     }
 
-    void Renderer::InitTriangle()
+    void Renderer::InitTriangle(float position[6])
     {
-        float position[6] =
-        {
-            -0.5f, -0.5f,
-            0.0f, 0.5f,
-            0.5f, -0.5f
-        };
-
         unsigned int buffer;
         /* glGenBuffers Genera Buffers para que los puedas usar
         *  El 1 En este caso es por qie solo queremos un buffer para el dibujado del triangulo
@@ -69,5 +64,15 @@ namespace OkasoEngine_Render
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+    Renderer* Renderer::GetRenderer()
+    {
+        if (rendererInstance == nullptr)
+        {
+            rendererInstance = new Renderer();
+        }
+
+        return rendererInstance;
     }
 }

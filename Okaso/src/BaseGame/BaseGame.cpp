@@ -1,9 +1,23 @@
 ﻿#include "baseGame.h"
+#include "../Entity/Entity2D/Entity2D.h"
+#include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
+
 using namespace OkasoEngine_Utilities;
+
 Okaso_Engine::Okaso_Engine()
 {
     OkasoDebuger::OkasoDebugerSetActive(true);
+
+    float position[6] =
+    {
+        -0.5f, -0.5f,
+        0.0f, 0.5f,
+        0.5f, -0.5f
+    };
+
     initGame(); 
+
+    triangle = new Triangle(position);
 }
 
 Okaso_Engine::~Okaso_Engine()
@@ -45,7 +59,11 @@ void Okaso_Engine::gameLoop()
 {
     while (!glfwWindowShouldClose(window->getWindow()))
     {
-        renderer->RenderScreen();
+        renderer->BeginDrawing();
+
+        triangle->Draw();
+
+        renderer->EndDrawing();
     }
 }
 
