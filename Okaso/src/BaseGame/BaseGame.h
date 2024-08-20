@@ -2,6 +2,8 @@
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
 #include "../Utils/Utils.h"
+#include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
+
 class Okaso_Engine
 {
 public:

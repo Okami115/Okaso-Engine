@@ -16,6 +16,8 @@ Okaso_Engine::Okaso_Engine()
     };
 
     initGame(); 
+
+    triangle = new Triangle(position);
 }
 
 Okaso_Engine::~Okaso_Engine()
@@ -57,8 +59,11 @@ void Okaso_Engine::gameLoop()
 {
     while (!glfwWindowShouldClose(window->getWindow()))
     {
-        renderer->RenderScreen();
+        renderer->BeginDrawing();
 
+        triangle->Draw();
+
+        renderer->EndDrawing();
     }
 }
 

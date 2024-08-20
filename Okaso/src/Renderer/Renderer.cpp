@@ -16,11 +16,14 @@ namespace OkasoEngine_Render
         OkasoDebuger::OKE_Debug("Renderer Deleted",Info_L);
     }
 
-    void Renderer::RenderScreen() 
+    void Renderer::BeginDrawing()
     {
         /* Render here */
         glClear(mask);
+    }
 
+    void Renderer::EndDrawing() 
+    {
         /* Swap front and back buffers */
         glfwSwapBuffers(GLFWW->getWindow());
 

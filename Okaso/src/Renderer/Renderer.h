@@ -13,7 +13,8 @@ namespace OkasoEngine_Render
     public:
         Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, GLbitfield mask = DEFAULT_MASK);
         ~Renderer();
-        void RenderScreen();
+        void EndDrawing();
+        void BeginDrawing();
         void SetWindow(OkasoEngine_Window::Window* window);
         void Setbitfield(GLbitfield mask);
         GLbitfield Getbitfield();
