@@ -2,6 +2,8 @@
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
 #include "../Utils/Utils.h"
+#include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
+
 class Okaso_Engine
 {
 public:
@@ -11,6 +13,7 @@ public:
 private:
     OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
+    Triangle* triangle;
     void initGame();
     void endGame();
 };
