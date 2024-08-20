@@ -11,11 +11,20 @@ namespace OkasoEngine_Utilities
     public:
         static void OKE_Debug(string msg,LogPriority priority = Debug_L);
         static void OkasoDebugerSetActive(bool state);
-        static OkasoDebuger* _debuger;
+        static void SetActiveDebug_L(bool state);
+        static void SetActiveWarning_L(bool state);
+        static void SetActiveInfo_L(bool state);
+        static void SetActiveError_L(bool state);
+        static void SetActiveFatal_L(bool state);
         
     private:
         static void setConsoleColor(LogPriority priority);
         static bool isActive;
+        static bool showDebug_L;
+        static bool showWarning_L;
+        static bool showInfo_L;
+        static bool showError_L;
+        static bool showFatal_L;
     };
 }
 

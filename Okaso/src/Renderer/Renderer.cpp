@@ -6,13 +6,13 @@ namespace OkasoEngine_Render
     {
         this->GLFWW = window;
         this->mask = mask;
-        OkasoDebuger::_debuger->OKE_Debug("Renderer Created",Info_L);
+        OkasoDebuger::OKE_Debug("Renderer Created",Info_L);
         InitTriangle();
     }
 
     Renderer::~Renderer()
     {
-        OkasoDebuger::_debuger->OKE_Debug("Renderer Deleted",Info_L);
+        OkasoDebuger::OKE_Debug("Renderer Deleted",Info_L);
     }
 
     void Renderer::RenderScreen() 
@@ -27,9 +27,6 @@ namespace OkasoEngine_Render
 
         /* Poll for and process events */
         glfwPollEvents();
-
-
-
     }
 
     void Renderer::SetWindow(OkasoEngine_Window::Window* window) 
@@ -61,7 +58,11 @@ namespace OkasoEngine_Render
         };
 
         unsigned int buffer;
-
+        /* glGenBuffers Genera Buffers para que los puedas usar
+        *  El 1 En este caso es por qie solo queremos un buffer para el dibujado del triangulo
+        *  El unsigned int que le pasamos es para asignarle un espacio en memoria para que utilice
+        *  este unsigned int buffer seria como el ID del buffer que vamos a generar
+        */
         glGenBuffers(1, &buffer);
         glBindBuffer(GL_ARRAY_BUFFER, buffer);
         glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), position, GL_STATIC_DRAW);

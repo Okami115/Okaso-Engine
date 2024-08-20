@@ -2,9 +2,8 @@
 using namespace OkasoEngine_Utilities;
 Okaso_Engine::Okaso_Engine()
 {
-    OkasoDebuger::_debuger->OkasoDebugerSetActive(true);
-    OkasoDebuger::_debuger->OKE_Debug("Init Debugger",LogPriority::Info_L);
-    initGame();
+    OkasoDebuger::OkasoDebugerSetActive(true);
+    initGame(); 
 }
 
 Okaso_Engine::~Okaso_Engine()
