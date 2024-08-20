@@ -1,8 +1,9 @@
 #include "BaseGame.h"
-#include"../Utils/Utils.h"
 
 void main()
 {
+
+	OkasoEngine_Render::Renderer::GetRenderer();
 	/*
 	position pos = position(4.5f, 11.0f);
 

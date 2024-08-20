@@ -8,7 +8,7 @@ namespace OkasoEngine_Render
     static  OkasoEngine_Window::Window* DEFAULT_WINDOW = NULL;
     static  GLbitfield DEFAULT_MASK = GL_COLOR_BUFFER_BIT;
 #pragma endregion
-    class Renderer final
+    static class Renderer final
     {
     public:
         Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, GLbitfield mask = DEFAULT_MASK);
@@ -18,10 +18,12 @@ namespace OkasoEngine_Render
         void Setbitfield(GLbitfield mask);
         GLbitfield Getbitfield();
         void DrawTriangle();
-        void InitTriangle();
+        void InitTriangle(float position[6]);
+        static Renderer* GetRenderer();
 
     private:
         OkasoEngine_Window::Window* GLFWW;
+        static Renderer* rendererInstance;
         GLbitfield mask;
     };
 }

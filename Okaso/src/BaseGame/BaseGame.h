@@ -11,6 +11,7 @@ public:
 private:
     OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
+    Triangle* triangle;
     void initGame();
     void endGame();
 };
