@@ -1,5 +1,8 @@
 ﻿#include "renderer.h"
+#include "../Utils/FilesReader.h"
+
 using namespace OkasoEngine_Utilities;
+
 namespace OkasoEngine_Render
 {
     static int CompileProgram(unsigned int type, const std::string& source)
@@ -98,33 +101,16 @@ namespace OkasoEngine_Render
     void Renderer::InitTriangle(float position[6])
     {
         unsigned int buffer;
-        /* glGenBuffers Genera Buffers para que los puedas usar
-        *  El 1 En este caso es por qie solo queremos un buffer para el dibujado del triangulo
-        *  El unsigned int que le pasamos es para asignarle un espacio en memoria para que utilice
-        *  este unsigned int buffer seria como el ID del buffer que vamos a generar
-        */
+
         glGenBuffers(1, &buffer);
         glBindBuffer(GL_ARRAY_BUFFER, buffer);
         glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), position, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
+        ShaderProgram shaderFile = OkasoUtils::ParseShader("res/shader/basic.abrazo");
 
-        std::string vertexShader = "#version 330 core\n"
-            "layout (location = 0) in vec3 aPos;\n"
-            "void main()\n"
-            "{\n"
-            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-            "}\0";
-
-        std::string fragmentShader = "#version 330 core\n"
-            "layout (location = 0) out vec4 color;\n"
-            "void main()\n"
-            "{\n"
-            "   color = vec4(1.0, 1.0, 0.0, 1.0);\n"
-            "}\0";
-
-        unsigned int shader = CreateShader(vertexShader, fragmentShader);
+        unsigned int shader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
         glUseProgram(shader);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);

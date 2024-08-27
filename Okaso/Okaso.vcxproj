@@ -232,6 +232,7 @@
       <AdditionalIncludeDirectories>C:\GithubRepo\Okaso-Engine\Okaso\libs\GLFW\Include;</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\Utils\FilesReader.cpp" />
     <ClCompile Include="src\Utils\OkasoDebuger.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
   </ItemGroup>
@@ -242,9 +243,13 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Triangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Utils\FilesReader.h" />
     <ClInclude Include="src\Utils\OkasoDebuger.h" />
     <ClInclude Include="src\Utils\Utils.h" />
     <ClInclude Include="src\Window\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\basic.abrazo" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

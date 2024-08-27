@@ -45,6 +45,7 @@ namespace OkasoEngine_Utilities
 
         setConsoleColor(priority);
         cout << msg << endl;
+        setConsoleColor(Debug_L);
     }
 
     /// <summary>
