@@ -24,12 +24,12 @@ namespace OkasoEngine_Window
 
         /* Make the window's context current */
         glfwMakeContextCurrent(GlfWindow);
-        OkasoDebuger::OKE_Debug("Window Created",Info_L);
+        OkasoDebuger::OKE_Debug("INIT :: Window",Info_L);
     }
 
     void Window::destroyWindow()
     {
-        OkasoDebuger::OKE_Debug("Window Destroyed",Info_L);
+        OkasoDebuger::OKE_Debug("DELETE :: Window",Info_L);
         glfwDestroyWindow(GlfWindow);
     }
 
