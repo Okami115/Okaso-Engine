@@ -79,6 +79,12 @@ void Okaso_Engine::gameLoop()
 
 void Okaso_Engine::endGame()
 {
+<<<<<<< Updated upstream
     exit();
+=======
+    delete renderer;
+    delete window;
+    delete triangle;
+>>>>>>> Stashed changes
     glfwTerminate();
 }

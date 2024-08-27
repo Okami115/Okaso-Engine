@@ -8,12 +8,12 @@ namespace OkasoEngine_Render
         this->GLFWW = window;
         this->mask = mask;
         rendererInstance = this;
-        OkasoDebuger::OKE_Debug("Renderer Created",Info_L);
+        OkasoDebuger::OKE_Debug("INIT :: Renderer",Info_L);
     }
 
     Renderer::~Renderer()
     {
-        OkasoDebuger::OKE_Debug("Renderer Deleted",Info_L);
+        OkasoDebuger::OKE_Debug("DELETE :: Renderer",Info_L);
     }
 
     void Renderer::BeginDrawing()
