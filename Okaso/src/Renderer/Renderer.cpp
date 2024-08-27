@@ -2,6 +2,51 @@
 using namespace OkasoEngine_Utilities;
 namespace OkasoEngine_Render
 {
+    static int CompileProgram(unsigned int type, const std::string& source)
+    {
+        unsigned int id = glCreateShader(type);
+        const char* src = source.c_str();
+
+        glShaderSource(id, 1, &src, nullptr);
+        glCompileShader(id);
+
+        int result;
+        glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+        if (result == GL_FALSE)
+        {
+            int lenght;
+            glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lenght);
+            char* message = (char*)alloca(lenght * sizeof(char));
+            glGetShaderInfoLog(id, lenght, &lenght, message);
+
+            OkasoDebuger::OKE_Debug("FAILED IN SHADER COMPILE :: "+
+                (string)(type == GL_VERTEX_SHADER ? "VERTEX SHADER" : "FRAGMENT SHADER")
+                + (string)message, Fatal_L);
+        }
+
+
+        return id;
+    }
+
+    static int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+    {
+        unsigned int program = glCreateProgram();
+        unsigned int vs = CompileProgram(GL_VERTEX_SHADER, vertexShader);
+        unsigned int fs = CompileProgram(GL_FRAGMENT_SHADER, fragmentShader);
+
+        glAttachShader(program, vs);
+        glAttachShader(program, fs);
+
+        glLinkProgram(program);
+        glValidateProgram(program);
+
+        glDeleteShader(vs);
+        glDeleteShader(fs);
+
+        return program;
+
+    }
+
     Renderer* Renderer::rendererInstance = nullptr;
     Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
     {
@@ -63,7 +108,27 @@ namespace OkasoEngine_Render
         glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), position, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+
+
+        std::string vertexShader = "#version 330 core\n"
+            "layout (location = 0) in vec3 aPos;\n"
+            "void main()\n"
+            "{\n"
+            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+            "}\0";
+
+        std::string fragmentShader = "#version 330 core\n"
+            "layout (location = 0) out vec4 color;\n"
+            "void main()\n"
+            "{\n"
+            "   color = vec4(1.0, 1.0, 0.0, 1.0);\n"
+            "}\0";
+
+        unsigned int shader = CreateShader(vertexShader, fragmentShader);
+        glUseProgram(shader);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glDeleteProgram(shader);
     }
 
     Renderer* Renderer::GetRenderer()
