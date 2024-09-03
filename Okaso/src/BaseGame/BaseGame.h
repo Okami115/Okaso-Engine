@@ -4,7 +4,7 @@
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 #include "../Utils/Utils.h"
 
-class EXPORT Okaso_Engine
+class Okaso_Engine
 {
 public:
     Okaso_Engine();

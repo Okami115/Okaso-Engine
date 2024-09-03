@@ -57,10 +57,16 @@ namespace OkasoEngine_Render
         this->mask = mask;
         rendererInstance = this;
         OkasoDebuger::OKE_Debug("INIT :: Renderer",Info_L);
+
+        ShaderProgram shaderFile = OkasoUtils::ParseShader("res/shader/basic.abrazo");
+
+        shader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
+
     }
 
     Renderer::~Renderer()
     {
+        glDeleteProgram(shader);
         OkasoDebuger::OKE_Debug("DELETE :: Renderer",Info_L);
     }
 
@@ -68,6 +74,7 @@ namespace OkasoEngine_Render
     {
         /* Render here */
         glClear(mask);
+        glUseProgram(shader);
     }
 
     void Renderer::EndDrawing() 
@@ -93,28 +100,34 @@ namespace OkasoEngine_Render
         return this->mask;
     }
 
-    void Renderer::DrawTriangle()
+    void Renderer::DrawShape(unsigned int* VAO)
     {
-        glDrawArrays(GL_TRIANGLES, 0, 3.0f);
+        glUseProgram(shader);
+        glBindVertexArray(*VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
-    void Renderer::InitTriangle(float position[6])
+    void Renderer::InitShape(float* vertices, int vertexCount, unsigned int* indices, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO)
     {
-        unsigned int buffer;
 
-        glGenBuffers(1, &buffer);
-        glBindBuffer(GL_ARRAY_BUFFER, buffer);
-        glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), position, GL_STATIC_DRAW);
+        glGenVertexArrays(1, VAO);
+        glGenBuffers(1, VBO);
+        glGenBuffers(1, EBO);
+
+        glBindVertexArray(*VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount, vertices, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indexSize, indices, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-
-        ShaderProgram shaderFile = OkasoUtils::ParseShader("res/shader/basic.abrazo");
-
-        unsigned int shader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
-        glUseProgram(shader);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDeleteProgram(shader);
+
+        glBindVertexArray(0);
     }
 
     Renderer* Renderer::GetRenderer()

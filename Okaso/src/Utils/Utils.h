@@ -1,9 +1,11 @@
 #pragma once
+/*
 #ifdef MAKEDLL
 #  define EXPORT __declspec(dllexport)
 #else
 #  define EXPORT __declspec(dllimport)
 #endif
+*/
 #include "OkasoDebuger.h"
 
 namespace OkasoEngine_Utilities
@@ -13,6 +15,7 @@ namespace OkasoEngine_Utilities
 	static const float DEFAULT_UV = 0.0f;
 	static const float DEFAULT_POS = 0.0f;
 #pragma endregion
+	
 	struct position
 	{
 		float x;

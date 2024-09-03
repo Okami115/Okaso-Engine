@@ -18,12 +18,13 @@ namespace OkasoEngine_Render
         void SetWindow(OkasoEngine_Window::Window* window);
         void Setbitfield(GLbitfield mask);
         GLbitfield Getbitfield();
-        void DrawTriangle();
-        void InitTriangle(float position[6]);
+        void DrawShape(unsigned int* VAO);
+        void InitShape(float* vertices, int vertexCount, unsigned int* indices, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
         static Renderer* GetRenderer();
 
     private:
         OkasoEngine_Window::Window* GLFWW;
+        unsigned int shader;
         static Renderer* rendererInstance;
         GLbitfield mask;
     };
