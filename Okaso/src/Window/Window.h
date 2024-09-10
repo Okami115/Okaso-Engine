@@ -11,7 +11,7 @@ namespace OkasoEngine_Window
     static  GLFWmonitor* DEFAULT_MONITOR = NULL;
     static  GLFWwindow* DEFAULT_WINDOW = NULL;
 #pragma endregion
-    class Window final
+    class EXPORT Window final
     {
     public:
         Window(int width = DEFAULT_WIDTH,int height = DEFAULT_HEIGHT, const char* title = DEFAULT_TITLE

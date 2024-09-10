@@ -4,10 +4,10 @@
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 #include "../Utils/Utils.h"
 
-class Okaso_Engine
+class EXPORT Okaso_Engine
 {
 public:
-    Okaso_Engine();
+     Okaso_Engine();
     ~Okaso_Engine();
     void gameLoop();
     virtual void update();

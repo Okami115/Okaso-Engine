@@ -1,7 +1,7 @@
 #pragma once
 #include "../Shape.h"
 
-class Triangle : public Shape
+class EXPORT Triangle : public Shape
 {
 public:
 	Triangle(float* position, unsigned int* index, int vertexSize, int indexSize);

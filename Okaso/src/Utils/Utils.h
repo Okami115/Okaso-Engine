@@ -1,11 +1,7 @@
 #pragma once
-/*
-#ifdef MAKEDLL
-#  define EXPORT __declspec(dllexport)
-#else
-#  define EXPORT __declspec(dllimport)
-#endif
-*/
+
+#define EXPORT __declspec(dllexport)
+
 #include "OkasoDebuger.h"
 
 namespace OkasoEngine_Utilities
@@ -16,7 +12,7 @@ namespace OkasoEngine_Utilities
 	static const float DEFAULT_POS = 0.0f;
 #pragma endregion
 	
-	struct position
+	struct EXPORT position
 	{
 		float x;
 		float y;
@@ -30,7 +26,7 @@ namespace OkasoEngine_Utilities
 		}
 	};
 
-	struct UV
+	struct EXPORT UV
 	{
 		float u;
 		float v;
@@ -43,7 +39,7 @@ namespace OkasoEngine_Utilities
 
 	};
 
-	struct Color
+	struct EXPORT Color
 	{
 		float red;
 		float green;
@@ -59,7 +55,7 @@ namespace OkasoEngine_Utilities
 		}
 	};
 
-	struct Vertex
+	struct EXPORT Vertex
 	{
 		position pos;
 		UV uv;

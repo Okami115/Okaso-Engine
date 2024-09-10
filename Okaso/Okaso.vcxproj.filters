@@ -24,9 +24,6 @@
     <ClCompile Include="src\Window\Window.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseGame\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\Entity\Entity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>

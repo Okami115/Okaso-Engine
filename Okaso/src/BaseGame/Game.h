@@ -2,7 +2,7 @@
 #include "BaseGame.h"
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 
-class Game final : public Okaso_Engine
+class EXPORT Game final : public Okaso_Engine
 {
 private:
     int windowWidth = 800;

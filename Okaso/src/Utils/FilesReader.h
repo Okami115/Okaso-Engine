@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Utils.h"
 
 namespace OkasoEngine_Utilities
 {
-	struct ShaderProgram
+	struct EXPORT ShaderProgram
 	{
 		std::string vertexShader;
 		std::string fragmentShader;
@@ -17,7 +18,7 @@ namespace OkasoEngine_Utilities
 	};
 
 
-	class OkasoUtils
+	class EXPORT OkasoUtils
 	{
 		public:
 			static ShaderProgram ParseShader(const std::string& path);

@@ -8,7 +8,7 @@ namespace OkasoEngine_Render
     static  OkasoEngine_Window::Window* DEFAULT_WINDOW = NULL;
     static  GLbitfield DEFAULT_MASK = GL_COLOR_BUFFER_BIT;
 #pragma endregion
-    static class Renderer final
+    static EXPORT class Renderer final
     {
     public:
         Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, GLbitfield mask = DEFAULT_MASK);
