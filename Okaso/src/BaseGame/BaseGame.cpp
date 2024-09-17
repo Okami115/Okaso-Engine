@@ -6,7 +6,7 @@ using namespace OkasoEngine_Utilities;
 
 Okaso_Engine::Okaso_Engine()
 {
-    //OkasoDebuger::OkasoDebugerSetActive(true);
+    OkasoDebuger::OkasoDebugerSetActive(true);
     initGame(); 
 }
 
