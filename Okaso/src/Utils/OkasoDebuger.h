@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <Windows.h>
+#include "Utils.h"
 using namespace std;
 
 namespace OkasoEngine_Utilities

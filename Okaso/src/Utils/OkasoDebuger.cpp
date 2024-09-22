@@ -1,4 +1,4 @@
-﻿#include "OkasoDebuger.h"
+#include "OkasoDebuger.h"
 
 namespace OkasoEngine_Utilities
 {
@@ -52,6 +52,7 @@ namespace OkasoEngine_Utilities
 
         setConsoleColor(priority);
         cout << msgType << msg << endl;
+        setConsoleColor(Debug_L);
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 #pragma once
 #include "../Renderer/Renderer.h"
 
-class Entity
+class EXPORT Entity
 {
 public:
 	Entity();

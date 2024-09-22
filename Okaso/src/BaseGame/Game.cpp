@@ -2,35 +2,36 @@
 
 Game::Game(int windowWidth, int windowHeight)
 {
-    this->windowWidth = windowWidth;
-    this->windowHeight = windowHeight;
-    init();
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
+	init();
 }
 
 Game::~Game()
 {
-    exit();
+	exit();
 }
 
 void Game::init()
 {
-    float position[6] =
-    {
-        -0.5f, -0.5f,
-        0.0f, 0.5f,
-        0.5f, -0.5f
+    float vertices[] = {
+         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  
+         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   
+    };
+    unsigned int indices[] = {  
+        0, 1, 2,  
     };
 
-    triangle = new Triangle(position);
+	triangle = new Triangle(vertices, indices, 18, 3);
 }
 
 void Game::update()
 {
-    triangle->Draw();
+	triangle->Draw();
 }
 
 void Game::exit()
 {
-    delete triangle;
-    
+	delete triangle;
 }
