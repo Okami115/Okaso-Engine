@@ -1,6 +1,9 @@
 #pragma once
-
-#define EXPORT __declspec(dllexport)
+#ifdef MAKEDLL
+#  define EXPORT __declspec(dllexport)
+#else
+#  define EXPORT __declspec(dllimport)
+#endif
 
 #include "OkasoDebuger.h"
 
