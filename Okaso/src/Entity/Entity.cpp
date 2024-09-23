@@ -64,6 +64,16 @@ void Entity::SetColor(float x, float y, float z)
 	UpdateMatrix();
 }
 
+void Entity::Rotate(float x, float y, float z)
+{
+	SetRotation(rotation.x + x,rotation.y + y,rotation.z + z);
+}
+
+void Entity::Translate(float x, float y, float z)
+{
+	SetPosition(traslation.x + x,traslation.y + y,traslation.z + z);
+}
+
 glm::vec3 Entity::GetPosition()
 {
 	return traslation;

@@ -13,6 +13,8 @@ public:
 	void SetRotation(float x, float y, float z);
 	void SetScale(float x, float y, float z);
 	void SetColor(float x, float y, float z);
+	void Rotate(float x = 0, float y = 0, float z = 0);
+	void Translate(float x = 0, float y = 0, float z = 0);
 
 	glm::vec3 GetPosition();
 	glm::vec3 GetRotation();
