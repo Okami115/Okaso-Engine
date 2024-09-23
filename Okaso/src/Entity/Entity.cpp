@@ -57,9 +57,9 @@ void Entity::SetScale(float x, float y, float z)
 	UpdateMatrix();
 }
 
-void Entity::SetColor(float x, float y, float z)
+void Entity::SetColor(float r, float g, float z)
 {
-	color = glm::vec3(x, y, z);
+	color = glm::vec3(r, g, z);
 
 	UpdateMatrix();
 }

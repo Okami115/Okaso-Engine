@@ -27,7 +27,7 @@ void Game::update()
 {
 	triangle->Rotate(0,0,0.5f);
 	triangle->Translate(0,0.5f,0);
-	rectangle->SetRotation(0, 0, rectangle->GetRotation().z - 0.01f);
+	rectangle->Rotate(0, 0, - 0.01f);
 
 
 	rectangle->Draw();
