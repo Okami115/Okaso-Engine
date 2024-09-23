@@ -12,8 +12,6 @@ namespace shape
 	
 	private:
 		unsigned int index[3];
-		float color[3];
-	
 	};
 }
 

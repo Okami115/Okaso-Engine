@@ -18,6 +18,14 @@ namespace OkasoEngine_Window
         , GLFWmonitor* monitor = DEFAULT_MONITOR,GLFWwindow* window = DEFAULT_WINDOW);
         ~Window();
         GLFWwindow* getWindow();
+        /// <summary>
+        /// Returns the window creation Height
+        /// </summary>
+        int GetWindowHeight() const {return height;}
+        /// <summary>
+        /// Returns the window creation width
+        /// </summary>
+        int GetWindowWidth() const {return width;}
     private:
         int width;
         int height;
