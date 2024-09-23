@@ -1,5 +1,8 @@
 ﻿#include "renderer.h"
 #include "../Utils/FilesReader.h"
+#include "../glm/glm.hpp"
+#include "../glm/gtc/matrix_transform.hpp"
+#include "../glm/gtc/type_ptr.hpp"
 
 using namespace OkasoEngine_Utilities;
 
@@ -51,6 +54,7 @@ namespace OkasoEngine_Render
     }
 
     Renderer* Renderer::rendererInstance = nullptr;
+
     Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
     {
         this->GLFWW = window;
@@ -61,7 +65,8 @@ namespace OkasoEngine_Render
         ShaderProgram shaderFile = OkasoUtils::ParseShader("../Okaso/res/shader/basic.abrazo");
 
         shader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
-
+        
+        proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
     }
 
     Renderer::~Renderer()
@@ -103,6 +108,14 @@ namespace OkasoEngine_Render
     void Renderer::DrawShape(unsigned int* VAO)
     {
         glUseProgram(shader);
+
+        glm::mat4 transform = glm::mat4(1.0f);
+        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, 0.0f, glm::vec3(0.0f, 0.0f, 90.0f));
+        //(float)glfwGetTime()
+        unsigned int transformLoc = glGetUniformLocation(shader, "u_MVP");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
         glBindVertexArray(*VAO);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
     }
@@ -118,7 +131,6 @@ namespace OkasoEngine_Render
 
         glBindBuffer(GL_ARRAY_BUFFER, *VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount, vertices, GL_STATIC_DRAW);
-
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indexSize, indices, GL_STATIC_DRAW);

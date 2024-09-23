@@ -2,6 +2,9 @@
 #include "../../libs/GLEW/Include/glew.h"
 #include "../Window/Window.h"
 #include "../Utils/Utils.h"
+#include "../glm/glm.hpp"
+#include "../glm/gtc/matrix_transform.hpp"
+
 namespace OkasoEngine_Render
 {
 #pragma region Default Values For Renderer creation
@@ -27,5 +30,6 @@ namespace OkasoEngine_Render
         unsigned int shader;
         static Renderer* rendererInstance;
         GLbitfield mask;
+        glm::mat4 proj;
     };
 }
