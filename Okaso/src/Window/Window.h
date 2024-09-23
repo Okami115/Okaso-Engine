@@ -14,14 +14,27 @@ namespace OkasoEngine_Window
     class EXPORT Window final
     {
     public:
+        /// <summary>
+        /// Creates A new Window
+        /// <para> width is for the window initial width
+        /// <para> height is for the window initial height
+        /// <para> title is for the window Title
+        /// </summary>
         Window(int width = DEFAULT_WIDTH,int height = DEFAULT_HEIGHT, const char* title = DEFAULT_TITLE
         , GLFWmonitor* monitor = DEFAULT_MONITOR,GLFWwindow* window = DEFAULT_WINDOW);
+        
         ~Window();
+        
+        /// <summary>
+        /// Returns the Created Window
+        /// </summary>
         GLFWwindow* getWindow();
+        
         /// <summary>
         /// Returns the window creation Height
         /// </summary>
         int GetWindowHeight() const {return height;}
+        
         /// <summary>
         /// Returns the window creation width
         /// </summary>
@@ -32,7 +45,15 @@ namespace OkasoEngine_Window
         const char* title;
         GLFWmonitor* monitor;
         GLFWwindow* GlfWindow;
+        
+        /// <summary>
+        /// Initialize GLFW Window
+        /// </summary>
         void initWindow();
+        
+        /// <summary>
+        /// Destroys the Created Window
+        /// </summary>
         void destroyWindow();
     };
 }
