@@ -1,13 +1,15 @@
 ﻿#pragma once
 #include "BaseGame.h"
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
+#include "../Entity/Entity2D/Shape/Primitives/Rectangle.h"
 
 class EXPORT Game final : public Okaso_Engine
 {
 private:
     int windowWidth = 800;
     int windowHeight = 400;
-    Triangle* triangle;
+    shape::Triangle* triangle;
+    shape::Rectangle* rectangle;
 public:
     Game(int windowWidth,int windowHeight);
     ~Game();

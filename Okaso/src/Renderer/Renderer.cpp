@@ -107,7 +107,7 @@ namespace OkasoEngine_Render
         return this->mask;
     }
 
-    void Renderer::DrawShape(unsigned int* VAO, glm::mat4 model)
+    void Renderer::DrawShape(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color)
     {
         glUseProgram(shader);
 
@@ -120,8 +120,11 @@ namespace OkasoEngine_Render
         unsigned int viewLoc = glGetUniformLocation(shader, "view");
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 
+        int vertexColorLocation = glGetUniformLocation(shader, "ourColor");
+        glUniform3f(vertexColorLocation, color.r, color.g, color.b);
+
         glBindVertexArray(*VAO);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, elementsCount, GL_UNSIGNED_INT, 0);
     }
 
     void Renderer::InitShape(float* vertices, int vertexCount, unsigned int* indices, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO)
@@ -139,11 +142,8 @@ namespace OkasoEngine_Render
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indexSize, indices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
-
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         

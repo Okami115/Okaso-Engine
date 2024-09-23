@@ -3,17 +3,17 @@
 
 namespace shape
 {
-	class EXPORT Triangle : public Shape
+	class EXPORT Rectangle : public Shape
 	{
 	public:
-		Triangle();
-		~Triangle();
+		Rectangle();
+		~Rectangle();
 		void Draw() override;
 	
 	private:
-		unsigned int index[3];
+		unsigned int index[6];
 		float color[3];
 	
 	};
-}
 
+}

@@ -152,9 +152,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseGame\BaseGame.cpp" />
-    <ClCompile Include="src\BaseGame\Game.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
+    <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Triangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp">
@@ -238,9 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BaseGame\BaseGame.h" />
-    <ClInclude Include="src\BaseGame\Game.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
+    <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Triangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
