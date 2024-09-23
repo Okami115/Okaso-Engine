@@ -40,10 +40,37 @@ public:
 	/// <para> b : Entity Blue value
 	/// </summary>
 	void SetColor(float r, float g, float b);
-	
+
+	/// <summary>
+	/// Adds a Value to the Entity Rotation
+	/// <para> x : Adds x to the x rotation value
+	/// <para> y : Adds y to the y rotation value
+	/// <para> z : Adds z to the z rotation value
+	/// </summary>
 	void Rotate(float x = 0, float y = 0, float z = 0);
+
+	/// <summary>
+	/// Adds a Value to the Entity Position
+	/// <para> x : Adds x to the x Position value
+	/// <para> y : Adds y to the y Position value
+	/// <para> z : Adds z to the z Position value
+	/// </summary>
 	void Translate(float x = 0, float y = 0, float z = 0);
+
+	/// <summary>
+	/// Adds a Value to the Entity Scale
+	/// <para> x : Adds x to the x Scale value
+	/// <para> y : Adds y to the y Scale value
+	/// <para> z : Adds z to the z Scale value
+	/// </summary>
 	void Scale(float x = 0, float y = 0, float z = 0);
+
+	/// <summary>
+	/// Adds a Value to the Entity Color
+	/// <para> r : Adds r to the Red Color value
+	/// <para> g : Adds g to the Green Color value
+	/// <para> b : Adds b to the Blue Color value
+	/// </summary>
 	void Colorate(float r = 0, float g = 0, float b = 0);
 
 	/// <summary>
