@@ -8,9 +8,10 @@ Entity::Entity()
 
 	renderer = OkasoEngine_Render::Renderer::GetRenderer();
 
-	traslation = glm::vec3(400, 400, 0);
+	traslation = glm::vec3(renderer->SCR_WIDTH /2, renderer->SCR_HEIGHT / 2, 0);
 	rotation = glm::vec3(0, 0, 0);
-	scale = glm::vec3(100, 100, 100);
+	scale = glm::vec3(1, 1, 1);
+	color = glm::vec3(1, 1, 1);
 
 	UpdateMatrix();
 }
@@ -56,6 +57,13 @@ void Entity::SetScale(float x, float y, float z)
 	UpdateMatrix();
 }
 
+void Entity::SetColor(float x, float y, float z)
+{
+	color = glm::vec3(x, y, z);
+
+	UpdateMatrix();
+}
+
 glm::vec3 Entity::GetPosition()
 {
 	return traslation;
@@ -69,4 +77,9 @@ glm::vec3 Entity::GetRotation()
 glm::vec3 Entity::GetScale()
 {
 	return scale;
+}
+
+glm::vec3 Entity::GetColor()
+{
+	return color;
 }

@@ -21,7 +21,7 @@ namespace OkasoEngine_Render
         void SetWindow(OkasoEngine_Window::Window* window);
         void Setbitfield(GLbitfield mask);
         GLbitfield Getbitfield();
-        void DrawShape(unsigned int* VAO, glm::mat4 model);
+        void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
         void InitShape(float* vertices, int vertexCount, unsigned int* indices, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
         static Renderer* GetRenderer();
         const unsigned int SCR_WIDTH = 800;

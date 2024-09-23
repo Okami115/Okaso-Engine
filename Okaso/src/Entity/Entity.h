@@ -12,10 +12,12 @@ public:
 	void SetPosition(float x, float y, float z);
 	void SetRotation(float x, float y, float z);
 	void SetScale(float x, float y, float z);
+	void SetColor(float x, float y, float z);
 
 	glm::vec3 GetPosition();
 	glm::vec3 GetRotation();
 	glm::vec3 GetScale();
+	glm::vec3 GetColor();
 
 private:
 
@@ -24,6 +26,7 @@ protected:
 	glm::vec3 traslation;
 	glm::vec3 rotation;
 	glm::vec3 scale;
+	glm::vec3 color;
 	glm::mat4 model;
 };
 
