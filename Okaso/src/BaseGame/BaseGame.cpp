@@ -1,13 +1,12 @@
 ﻿#include "baseGame.h"
 #include "../Entity/Entity2D/Entity2D.h"
-#include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 
 using namespace OkasoEngine_Utilities;
 
 Okaso_Engine::Okaso_Engine()
 {
     OkasoDebuger::OkasoDebugerSetActive(true);
-    initGame(); 
+    initGame();
 }
 
 Okaso_Engine::~Okaso_Engine()
