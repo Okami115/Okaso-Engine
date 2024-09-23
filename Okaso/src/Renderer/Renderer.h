@@ -21,9 +21,11 @@ namespace OkasoEngine_Render
         void SetWindow(OkasoEngine_Window::Window* window);
         void Setbitfield(GLbitfield mask);
         GLbitfield Getbitfield();
-        void DrawShape(unsigned int* VAO);
+        void DrawShape(unsigned int* VAO, glm::mat4 model);
         void InitShape(float* vertices, int vertexCount, unsigned int* indices, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
         static Renderer* GetRenderer();
+        const unsigned int SCR_WIDTH = 800;
+        const unsigned int SCR_HEIGHT = 600;
 
     private:
         OkasoEngine_Window::Window* GLFWW;
@@ -31,5 +33,6 @@ namespace OkasoEngine_Render
         static Renderer* rendererInstance;
         GLbitfield mask;
         glm::mat4 proj;
+        glm::mat4 view;
     };
 }

@@ -66,7 +66,9 @@ namespace OkasoEngine_Render
 
         shader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
         
-        proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+        view = glm::mat4(1.0f);
+        proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+        view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
     }
 
     Renderer::~Renderer()
@@ -105,16 +107,18 @@ namespace OkasoEngine_Render
         return this->mask;
     }
 
-    void Renderer::DrawShape(unsigned int* VAO)
+    void Renderer::DrawShape(unsigned int* VAO, glm::mat4 model)
     {
         glUseProgram(shader);
 
-        glm::mat4 transform = glm::mat4(1.0f);
-        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-        transform = glm::rotate(transform, 0.0f, glm::vec3(0.0f, 0.0f, 90.0f));
-        //(float)glfwGetTime()
-        unsigned int transformLoc = glGetUniformLocation(shader, "u_MVP");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+        unsigned int transformLoc = glGetUniformLocation(shader, "model");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &model[0][0]);
+
+        unsigned int projLoc = glGetUniformLocation(shader, "projection");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &proj[0][0]);
+
+        unsigned int viewLoc = glGetUniformLocation(shader, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 
         glBindVertexArray(*VAO);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
