@@ -1,4 +1,4 @@
-﻿#include "OkasoDebuger.h"
+#include "OkasoDebuger.h"
 
 namespace OkasoEngine_Utilities
 {
@@ -19,32 +19,40 @@ namespace OkasoEngine_Utilities
         if (!isActive)
             return;
 
+        string msgType = "";
+
         switch (priority)
         {
         case Debug_L:
             if (!showDebug_L)
                 return;
+            msgType = "Debug_L :: ";
             break;
         case Warning_L:
             if (!showWarning_L)
                 return;
+            msgType = "Warning_L :: ";
             break;
         case Info_L:
             if (!showInfo_L)
                 return;
+            msgType = "Info_L :: ";
             break;
         case Error_L:
             if (!showError_L)
                 return;
+            msgType = "Error_L :: ";
             break;
         case Fatal_L:
             if (!showFatal_L)
                 return;
+            msgType = "Fatal_L :: ";
             break;
         }
 
         setConsoleColor(priority);
-        cout << msg << endl;
+        cout << msgType << msg << endl;
+        setConsoleColor(Debug_L);
     }
 
     /// <summary>
