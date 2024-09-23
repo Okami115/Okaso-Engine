@@ -15,9 +15,9 @@ Game::~Game()
 void Game::init()
 {
     float vertices[] = {
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  
-         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   
+        0.0f, 0.5f, 0,   1.0, 0.0f, 0.0f,  
+        0.5f, -0.5f, 0,        0.0f, 1.0f, 0.0f,  
+        -0.5f,  -0.5f, 0,    0.0f, 0.0f, 1.0f   
     };
     unsigned int indices[] = {  
         0, 1, 2,  
@@ -28,6 +28,9 @@ void Game::init()
 
 void Game::update()
 {
+    triangle->SetRotation(0, 0, triangle->GetRotation().z + 1);
+    triangle->SetScale(1000, 1000, 1000);
+
 	triangle->Draw();
 }
 

@@ -19,5 +19,5 @@ Triangle::~Triangle()
 void Triangle::Draw()
 {
 	//OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("DRAW :: Triangle",OkasoEngine_Utilities::Info_L);
-	renderer->DrawShape(VAO);
+	renderer->DrawShape(VAO, model);
 }
