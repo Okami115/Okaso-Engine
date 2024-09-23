@@ -74,6 +74,16 @@ void Entity::Translate(float x, float y, float z)
 	SetPosition(traslation.x + x,traslation.y + y,traslation.z + z);
 }
 
+void Entity::Scale(float x, float y, float z)
+{
+	SetScale(scale.x + x,scale.y + y,scale.z + z);
+}
+
+void Entity::Colorate(float r, float g, float b)
+{
+	SetColor(color.x + r,color.y + g,color.z + b);
+}
+
 glm::vec3 Entity::GetPosition()
 {
 	return traslation;

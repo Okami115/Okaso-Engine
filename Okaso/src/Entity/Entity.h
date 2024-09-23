@@ -43,6 +43,8 @@ public:
 	
 	void Rotate(float x = 0, float y = 0, float z = 0);
 	void Translate(float x = 0, float y = 0, float z = 0);
+	void Scale(float x = 0, float y = 0, float z = 0);
+	void Colorate(float r = 0, float g = 0, float b = 0);
 
 	/// <summary>
 	/// Returns The Entity Position
