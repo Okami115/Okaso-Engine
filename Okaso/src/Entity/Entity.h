@@ -5,6 +5,7 @@ class EXPORT Entity
 {
 public:
 	Entity();
+	void UpdateMatrix();
 	~Entity();
 	virtual void Draw();
 

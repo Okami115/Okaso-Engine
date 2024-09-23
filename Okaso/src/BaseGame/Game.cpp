@@ -28,7 +28,8 @@ void Game::init()
 
 void Game::update()
 {
-
+    triangle->SetRotation(0, 0, triangle->GetRotation().z + 1);
+    triangle->SetScale(1000, 1000, 1000);
 
 	triangle->Draw();
 }
