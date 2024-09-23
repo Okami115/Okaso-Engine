@@ -2,7 +2,6 @@
 using namespace OkasoEngine_Utilities;
 namespace OkasoEngine_Window
 {
-    
     Window::Window(int width,int height, const char* title, GLFWmonitor* monitor,GLFWwindow* window)
     {
         this->width = width;
@@ -17,7 +16,7 @@ namespace OkasoEngine_Window
     {
         destroyWindow();
     }
-
+    
     void Window::initWindow()
     {
         this->GlfWindow = glfwCreateWindow(width, height, title, monitor, GlfWindow);
@@ -27,12 +26,13 @@ namespace OkasoEngine_Window
         OkasoDebuger::OKE_Debug("INIT :: Window",Info_L);
     }
 
+    
     void Window::destroyWindow()
     {
         OkasoDebuger::OKE_Debug("DELETE :: Window",Info_L);
         glfwDestroyWindow(GlfWindow);
     }
-
+    
     GLFWwindow* Window::getWindow()
     {
         return GlfWindow;

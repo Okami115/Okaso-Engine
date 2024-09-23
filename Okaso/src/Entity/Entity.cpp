@@ -57,11 +57,31 @@ void Entity::SetScale(float x, float y, float z)
 	UpdateMatrix();
 }
 
-void Entity::SetColor(float x, float y, float z)
+void Entity::SetColor(float r, float g, float z)
 {
-	color = glm::vec3(x, y, z);
+	color = glm::vec3(r, g, z);
 
 	UpdateMatrix();
+}
+
+void Entity::Rotate(float x, float y, float z)
+{
+	SetRotation(rotation.x + x,rotation.y + y,rotation.z + z);
+}
+
+void Entity::Translate(float x, float y, float z)
+{
+	SetPosition(traslation.x + x,traslation.y + y,traslation.z + z);
+}
+
+void Entity::Scale(float x, float y, float z)
+{
+	SetScale(scale.x + x,scale.y + y,scale.z + z);
+}
+
+void Entity::Colorate(float r, float g, float b)
+{
+	SetColor(color.x + r,color.y + g,color.z + b);
 }
 
 glm::vec3 Entity::GetPosition()
