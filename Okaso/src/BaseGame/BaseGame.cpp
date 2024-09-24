@@ -1,5 +1,6 @@
 ﻿#include "baseGame.h"
 #include "../Entity/Entity2D/Entity2D.h"
+#include "../Input/Input.h"
 
 using namespace OkasoEngine_Utilities;
 
@@ -26,13 +27,13 @@ void Okaso_Engine::initGame()
 
     /* Create a windowed mode window and its OpenGL context */
     window = new OkasoEngine_Window::Window();
+    input = new OkasoEngine_Input::Input(window);
     if (!window)
     {
         OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
         endGame();
         return;
     }
-    
     if (glewInit() != GLEW_OK)
     {
         OkasoDebuger::OKE_Debug("GLEW::FAIL::INIT",Fatal_L);
@@ -49,7 +50,6 @@ void Okaso_Engine::initGame()
         endGame();
         return;
     }
-
     init();
 }
 
@@ -60,6 +60,7 @@ void Okaso_Engine::update()
 
 void Okaso_Engine::init()
 {
+    
 }
 
 void Okaso_Engine::exit()
@@ -81,5 +82,6 @@ void Okaso_Engine::endGame()
     exit();
     delete renderer;
     delete window;
+    delete input;
     glfwTerminate();
 }

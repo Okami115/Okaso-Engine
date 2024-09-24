@@ -157,6 +157,7 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Triangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -243,6 +244,8 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Triangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
+    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Input\KeyCode.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Utils\FilesReader.h" />
     <ClInclude Include="src\Utils\OkasoDebuger.h" />

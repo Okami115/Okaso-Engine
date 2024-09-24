@@ -4,6 +4,11 @@
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 #include "../Utils/Utils.h"
 
+namespace OkasoEngine_Input
+{
+    class Input;
+}
+
 class EXPORT Okaso_Engine
 {
 public:
@@ -49,4 +54,6 @@ private:
     /// Destroy the engine core 
     /// </summary>
     void endGame();
+protected:
+    OkasoEngine_Input::Input* input;
 };
