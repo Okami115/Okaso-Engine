@@ -17,34 +17,34 @@ Game::~Game()
 
 void Game::init()
 {
-	triangle = new shape::Triangle();
+	Yellowtriangle = new shape::Triangle();
+	Pinktriangle = new shape::Triangle();
 
-	rectangle = new shape::Rectangle();
+	Yellowtriangle->SetPosition(100,500,0);
+	Pinktriangle->SetPosition(700,100,0);
 
-	rectangle->SetColor(0, 1, 0);
-	triangle->SetColor(1, 0, 0);
-	
+	Yellowtriangle->SetColor(1, 1, 0);
+	Pinktriangle->SetColor(1, 0, 0.5f);
+
+	Yellowtriangle->SetScale(0.5f,0.5f,0.5f);
+	Pinktriangle->SetScale(0.5f,0.5f,0.5f);
 }
 
 void Game::update()
-{
-	if (input->isKeyPressed(KEY_D))
-	{
-		triangle->Translate(0,0.5f,0);
-	}
-	triangle->Rotate(0,0,0.5f);
-	
-	rectangle->Rotate(0, 0, - 0.01f);
+{	
+	Yellowtriangle->Rotate(0,0,1);
+	Pinktriangle->Rotate(0,0,-1);
 
+	Yellowtriangle->Translate(0,-1,0);
+	Pinktriangle->Translate(0,1,0);
 
-	rectangle->Draw();
-
-	triangle->Draw();
+	Yellowtriangle->Draw();
+	Pinktriangle->Draw();
 
 }
 
 void Game::exit()
 {
-	delete triangle;
-	delete rectangle;
+	delete Yellowtriangle;
+	delete Pinktriangle;
 }

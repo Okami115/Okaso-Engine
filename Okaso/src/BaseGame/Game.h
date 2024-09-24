@@ -8,8 +8,8 @@ class EXPORT Game final : public Okaso_Engine
 private:
     int windowWidth = 800;
     int windowHeight = 400;
-    shape::Triangle* triangle;
-    shape::Rectangle* rectangle;
+    shape::Triangle* Yellowtriangle;
+    shape::Triangle* Pinktriangle;
 public:
     Game(int windowWidth,int windowHeight);
     ~Game();
