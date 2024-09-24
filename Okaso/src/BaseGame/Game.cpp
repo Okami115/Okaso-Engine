@@ -17,34 +17,25 @@ Game::~Game()
 
 void Game::init()
 {
-	triangle = new shape::Triangle();
 
 	rectangle = new shape::Rectangle();
 
-	rectangle->SetColor(0, 1, 0);
-	triangle->SetColor(1, 0, 0);
+	rectangle->SetColor(0, 0, 1);
+	rectangle->SetPosition(0,windowHeight / 2,0);
 	
 }
 
 void Game::update()
 {
-	if (input->isKeyPressed(KEY_D))
-	{
-		triangle->Translate(0,0.5f,0);
-	}
-	triangle->Rotate(0,0,0.5f);
-	
-	rectangle->Rotate(0, 0, - 0.01f);
+	rectangle->Rotate(0, 0, - 1.0f);
+	rectangle->Translate(2.0f,0,0);
+	rectangle->Scale(-0.002,-0.002f,0);
 
 
 	rectangle->Draw();
-
-	triangle->Draw();
-
 }
 
 void Game::exit()
 {
-	delete triangle;
 	delete rectangle;
 }
