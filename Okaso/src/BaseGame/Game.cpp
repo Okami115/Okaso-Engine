@@ -1,5 +1,8 @@
 ﻿#include "Game.h"
 
+#include "Input/Input.h"
+#include "Input/KeyCode.h"
+
 Game::Game(int windowWidth, int windowHeight)
 {
 	this->windowWidth = windowWidth;
@@ -25,8 +28,12 @@ void Game::init()
 
 void Game::update()
 {
+	if (input->isKeyPressed(KEY_D))
+	{
+		triangle->Translate(0,0.5f,0);
+	}
 	triangle->Rotate(0,0,0.5f);
-	triangle->Translate(0,0.5f,0);
+	
 	rectangle->Rotate(0, 0, - 0.01f);
 
 
