@@ -3,11 +3,9 @@
 #include "../Renderer/Renderer.h"
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 #include "../Utils/Utils.h"
+#include "../Input/Input.h"
+#include "../Input/KeyCode.h"
 
-namespace OkasoEngine_Input
-{
-    class Input;
-}
 
 class EXPORT Okaso_Engine
 {
@@ -15,7 +13,7 @@ public:
     /// <summary>
     /// Create The Engine 
     /// </summary>
-     Okaso_Engine();
+    Okaso_Engine();
 
     /// <summary>
     /// Destroy The Engine 
@@ -41,6 +39,7 @@ public:
     /// Virtual Function For the destruction of the engine implementation
     /// </summary>
     virtual void exit();
+
 private:
     OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
@@ -49,11 +48,12 @@ private:
     /// Initialize the engine core 
     /// </summary>
     void initGame();
-    
+
     /// <summary>
     /// Destroy the engine core 
     /// </summary>
     void endGame();
+
 protected:
     OkasoEngine_Input::Input* input;
 };

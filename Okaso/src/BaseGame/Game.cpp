@@ -28,16 +28,35 @@ void Game::init()
 
 void Game::update()
 {
+	if (input->isKeyPressed(KEY_W))
+	{
+		triangle->Translate(0,2.0f,0);
+	}
+	if (input->isKeyPressed(KEY_S))
+	{
+		triangle->Translate(0,-2.0f,0);
+	}
 	if (input->isKeyPressed(KEY_D))
 	{
-		triangle->Translate(0,0.5f,0);
+		triangle->Translate(2.0f,0,0);
 	}
-	triangle->Rotate(0,0,0.5f);
-	
-	rectangle->Rotate(0, 0, - 0.01f);
+	if (input->isKeyPressed(KEY_A))
+	{
+		triangle->Translate(-2.0f,0,0);
+	}
+	if (input->isKeyPressed(KEY_E))
+	{
+		triangle->Rotate(0,0,-2.0f);
+	}
+	if (input->isKeyPressed(KEY_Q))
+	{
+		triangle->Rotate(0,0,2.0f);
+	}
+
+	//rectangle->Rotate(0, 0, -1.0f);
 
 
-	rectangle->Draw();
+	//rectangle->Draw();
 
 	triangle->Draw();
 

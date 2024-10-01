@@ -5,7 +5,7 @@
 
 namespace OkasoEngine_Input
 {
-    class EXPORT Input
+    class EXPORT Input final
     {
     public:
         Input(OkasoEngine_Window::Window* engineWindow);
