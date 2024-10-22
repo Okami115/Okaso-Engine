@@ -5,17 +5,17 @@ namespace OkasoEngine_Input
     Input::Input(OkasoEngine_Window::Window* engineWindow)
     {
         this->engineWindow = engineWindow;
-        std::cout << "Input Created" << std::endl;
+        OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("INIT :: Input", OkasoEngine_Utilities::Info_L);
     }
 
     Input::Input()
     {
-        std::cout << "Input Created whit no window" << std::endl;
+        OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("INIT :: Input without window", OkasoEngine_Utilities::Info_L);
     }
 
     Input::~Input()
     {
-        std::cout << "Input Destroyed" << std::endl;
+        OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("Destroy :: Input", OkasoEngine_Utilities::Info_L);
     }
     void Input::setInputWindow(OkasoEngine_Window::Window* engineWindow){ this->engineWindow = engineWindow; }
 
