@@ -1,27 +1,30 @@
 #pragma once
 #include "../Entity2D.h"
 
-class EXPORT Shape : public Entity2D
+class EXPORT Sprite : public Entity2D
 {
 public:
 	/// <summary>
-	/// Create a new Shape
+	/// Create a new Sprite
 	/// </summary>
-	Shape();
+	Sprite(const char* spritePath);
 
 	/// <summary>
-	/// Destroy a new Shape
+	/// Destroy a new Sprite
 	/// </summary>
-	~Shape();
+	~Sprite();
 
 	/// <summary>
-	/// Draw a new Shape
+	/// Draw a new Sprite
 	/// </summary>
 	void Draw() override;
-	
+
 	unsigned int* VBO;
 	unsigned int* EBO;
 	unsigned int* VAO;
+
+	const char* path;
+	unsigned int texture;
 private:
 
 };
