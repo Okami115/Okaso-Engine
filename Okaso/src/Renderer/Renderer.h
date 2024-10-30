@@ -48,17 +48,8 @@ namespace OkasoEngine_Render
         GLbitfield Getbitfield();
 
         /// <summary>
-        /// Renders a shape
-        /// <para> VAO : Vertex Array Object
-        /// <para> model : model matrix of the object
-        /// <para> vertexCount : max count of vertex on the shape
-        /// <para> color : color of the shape
-        /// </summary>
-        void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
-
-        /// <summary>
-        /// Creates a new Shape
-        /// <para> vertex : Shape vertex
+        /// Creates a new Entity
+        /// <para> vertex : Entity vertex
         /// <para> vertexCount : max count of vertex on the shape
         /// <para> index : index of the vertex positions
         /// <para> indexSize : max count of vertex index
@@ -67,6 +58,21 @@ namespace OkasoEngine_Render
         /// <para> VAO : Vertex Array Object
         /// </summary>
         void InitShape(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
+
+        /// <summary>
+        /// Renders a shape
+        /// <para> VAO : Vertex Array Object
+        /// <para> model : model matrix of the object
+        /// <para> vertexCount : max count of vertex on the shape
+        /// <para> color : color of the shape
+        /// </summary>
+        void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
+
+        void InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
+
+        void DrawSprite(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color, unsigned int* texture);
+
+        void InitTexture(const char* path, unsigned int* texture);
 
         /// <summary>
         /// Returns the current Renderer
@@ -78,7 +84,8 @@ namespace OkasoEngine_Render
 
     private:
         OkasoEngine_Window::Window* GLFWW;
-        unsigned int shader;
+        unsigned int basicShader;
+        unsigned int textureShader;
         static Renderer* rendererInstance;
         GLbitfield mask;
         glm::mat4 proj;

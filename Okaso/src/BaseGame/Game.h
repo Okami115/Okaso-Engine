@@ -2,6 +2,7 @@
 #include "BaseGame.h"
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
 #include "../Entity/Entity2D/Shape/Primitives/Rectangle.h"
+#include "../Entity/Entity2D/Sprite/Sprite.h"
 
 class EXPORT Game final : public Okaso_Engine
 {
@@ -10,6 +11,8 @@ private:
     int windowHeight = 400;
     shape::Triangle* triangle;
     shape::Rectangle* rectangle;
+    Sprite* sprite;
+    
 public:
     Game(int windowWidth,int windowHeight);
     ~Game();
