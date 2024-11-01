@@ -71,6 +71,17 @@ namespace OkasoEngine_Render
         shaderFile = OkasoUtils::ParseShader("../Okaso/res/shader/texture.abrazo");
         textureShader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
 
+        glEnable(GL_DEPTH);
+        glDepthFunc(GL_LESS);
+
+        glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+        glEnable(GL_SAMPLE_ALPHA_TO_ONE);
+        glFrontFace(GL_CCW);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_ALPHA);
+        glAlphaFunc(GL_GREATER, 0.1f);
+
         view = glm::mat4(1.0f);
         proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
         view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
@@ -224,7 +235,22 @@ namespace OkasoEngine_Render
 
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            GLenum format;
+
+            if (nrChannels == 1)
+            {
+                format = GL_RED;
+            }
+            else if (nrChannels == 3)
+            {
+                format = GL_RGB;
+            }
+            else if (nrChannels == 4)
+            {
+                format = GL_RGBA;
+            }
+
+            glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         else

@@ -22,7 +22,7 @@ void Game::init()
 	//rectangle = new shape::Rectangle();
 	//
 	//rectangle->SetColor(0, 1, 0);
-	sprite = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/the division.jpg");
+	sprite = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/the division.png");
 	sprite->SetRotation(180, 0, 0);
 }
 
