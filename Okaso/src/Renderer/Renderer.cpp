@@ -124,6 +124,13 @@ namespace OkasoEngine_Render
         return this->mask;
     }
 
+    void Renderer::DeleteObjects(unsigned int* VAO, unsigned int* VBO, unsigned int* EBO)
+    {
+        glDeleteVertexArrays(1, VAO);
+        glDeleteBuffers(1, VBO);
+        glDeleteBuffers(1, EBO);
+    }
+
     void Renderer::InitShape(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO)
     {
         glGenVertexArrays(1, VAO);
@@ -191,6 +198,31 @@ namespace OkasoEngine_Render
         glBindVertexArray(0);
 
         InitTexture(path, texture);
+    }
+
+    void Renderer::InitTextureBuffers(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, unsigned int* texture)
+    {
+        glGenVertexArrays(1, VAO);
+        glGenBuffers(1, VBO);
+        glGenBuffers(1, EBO);
+
+        glBindVertexArray(*VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount, vertex, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indexSize, index, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        glBindVertexArray(0);
     }
 
     void Renderer::DrawSprite(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color, unsigned int* texture)

@@ -1,6 +1,7 @@
 ﻿#include "baseGame.h"
 #include "../Entity/Entity2D/Entity2D.h"
 #include "../Input/Input.h"
+#include "../Utils/Time.h"
 
 using namespace OkasoEngine_Utilities;
 
@@ -71,6 +72,7 @@ void Okaso_Engine::gameLoop()
 {
     while (!glfwWindowShouldClose(window->getWindow()))
     {
+        Time::setTime();
         renderer->BeginDrawing();
         update();
         renderer->EndDrawing();

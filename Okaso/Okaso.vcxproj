@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp" />
+    <ClCompile Include="src\Animation\Frame.cpp" />
     <ClCompile Include="src\BaseGame\BaseGame.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
@@ -236,9 +238,12 @@
     </ClCompile>
     <ClCompile Include="src\Utils\FilesReader.cpp" />
     <ClCompile Include="src\Utils\OkasoDebuger.cpp" />
+    <ClCompile Include="src\Utils\Time.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h" />
+    <ClInclude Include="src\Animation\Frame.h" />
     <ClInclude Include="src\BaseGame\BaseGame.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
@@ -252,6 +257,7 @@
     <ClInclude Include="src\Utils\FilesReader.h" />
     <ClInclude Include="src\Utils\OkasoDebuger.h" />
     <ClInclude Include="src\Utils\stb_image.h" />
+    <ClInclude Include="src\Utils\Time.h" />
     <ClInclude Include="src\Utils\Utils.h" />
     <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>

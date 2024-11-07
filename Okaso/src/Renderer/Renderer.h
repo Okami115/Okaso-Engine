@@ -47,6 +47,8 @@ namespace OkasoEngine_Render
         /// </summary>
         GLbitfield Getbitfield();
 
+        void DeleteObjects(unsigned int* VAO, unsigned int* VBO, unsigned int* EBO);
+
         /// <summary>
         /// Creates a new Entity
         /// <para> vertex : Entity vertex
@@ -69,6 +71,8 @@ namespace OkasoEngine_Render
         void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
 
         void InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
+
+        void InitTextureBuffers(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, unsigned int* texture);
 
         void DrawSprite(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color, unsigned int* texture);
 

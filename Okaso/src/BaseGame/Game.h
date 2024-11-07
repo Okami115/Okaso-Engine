@@ -12,6 +12,7 @@ private:
     shape::Triangle* triangle;
     shape::Rectangle* rectangle;
     Sprite* sprite;
+    Sprite* sprite2;
     
 public:
     Game(int windowWidth,int windowHeight);
