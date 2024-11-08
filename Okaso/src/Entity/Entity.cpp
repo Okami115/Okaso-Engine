@@ -55,7 +55,7 @@ void Entity::ForceUpdatePreviousPos(float x, float y, float z)
 	previousTraslation = glm::vec3(x, y, z);
 }
 
-void Entity::ForceCurrentPosAsPreviousPos()
+void Entity::ForcePreviousPosAsCurrentPos()
 {
 	previousTraslation = traslation;
 }

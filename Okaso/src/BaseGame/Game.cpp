@@ -24,7 +24,7 @@ void Game::init()
     sprite->SetScale(120, 120, 1);
     sprite2->SetScale(512 / 3, 512 / 3, 1);
     sprite2->SetPosition(sprite2->GetPosition().x, sprite2->GetPosition().y + 200, 0);
-    sprite2->ForceCurrentPosAsPreviousPos();
+    sprite2->ForcePreviousPosAsCurrentPos();
 }
 
 void Game::update()
