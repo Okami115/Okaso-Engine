@@ -154,6 +154,7 @@
     <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Animation\Frame.cpp" />
     <ClCompile Include="src\BaseGame\BaseGame.cpp" />
+    <ClCompile Include="src\Colitions\Colitions.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Frame.h" />
     <ClInclude Include="src\BaseGame\BaseGame.h" />
+    <ClInclude Include="src\Colitions\Colitions.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.h" />

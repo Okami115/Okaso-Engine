@@ -18,6 +18,24 @@ public:
 	void SetPosition(float x, float y, float z);
 
 	/// <summary>
+	/// Set the Entity Position to the Previous Position
+	/// </summary>
+	void SetPreviousPosition();
+
+	/// <summary>
+	/// Force the update of the Previous Pos whit a new value
+	/// <para> x : Entity x PreviousPos
+	/// <para> y : Entity y PreviousPos
+	/// <para> z : Entity z PreviousPos
+	/// </summary>
+	void ForceUpdatePreviousPos(float x, float y, float z);
+
+	/// <summary>
+	/// Force the update of the Previous Pos to be the current Entity pos
+	/// </summary>
+	void ForcePreviousPosAsCurrentPos();
+
+	/// <summary>
 	/// Set the Entity Rotation
 	/// <para> x : Entity x Rotation
 	/// <para> y : Entity y Rotation
@@ -79,6 +97,11 @@ public:
 	glm::vec3 GetPosition();
 
 	/// <summary>
+	/// Returns The Entity previous Position
+	/// </summary>
+	glm::vec3 GetPreviousPosition();
+
+	/// <summary>
 	/// Returns The Entity Rotation
 	/// </summary>
 	glm::vec3 GetRotation();
@@ -98,6 +121,7 @@ private:
 protected:
 	OkasoEngine_Render::Renderer* renderer;
 	glm::vec3 traslation;
+	glm::vec3 previousTraslation;
 	glm::vec3 rotation;
 	glm::vec3 scale;
 	glm::vec3 color;

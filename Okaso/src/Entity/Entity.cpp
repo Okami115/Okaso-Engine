@@ -9,6 +9,7 @@ Entity::Entity()
 	renderer = OkasoEngine_Render::Renderer::GetRenderer();
 
 	traslation = glm::vec3(renderer->SCR_WIDTH /2, renderer->SCR_HEIGHT / 2, 0);
+	previousTraslation = traslation;
 	rotation = glm::vec3(0, 0, 0);
 	scale = glm::vec3(1, 1, 1);
 	color = glm::vec3(1, 1, 1);
@@ -38,9 +39,25 @@ void Entity::Draw()
 
 void Entity::SetPosition(float x, float y, float z)
 {
+	previousTraslation = traslation;
 	traslation = glm::vec3(x, y, z);
-
 	UpdateMatrix();
+}
+
+void Entity::SetPreviousPosition()
+{
+	traslation = previousTraslation;
+	UpdateMatrix();
+}
+
+void Entity::ForceUpdatePreviousPos(float x, float y, float z)
+{
+	previousTraslation = glm::vec3(x, y, z);
+}
+
+void Entity::ForceCurrentPosAsPreviousPos()
+{
+	previousTraslation = traslation;
 }
 
 void Entity::SetRotation(float x, float y, float z)
@@ -87,6 +104,11 @@ void Entity::Colorate(float r, float g, float b)
 glm::vec3 Entity::GetPosition()
 {
 	return traslation;
+}
+
+glm::vec3 Entity::GetPreviousPosition()
+{
+	return previousTraslation;
 }
 
 glm::vec3 Entity::GetRotation()
