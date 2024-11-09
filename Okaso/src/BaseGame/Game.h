@@ -4,6 +4,15 @@
 #include "../Entity/Entity2D/Shape/Primitives/Rectangle.h"
 #include "../Entity/Entity2D/Sprite/Sprite.h"
 
+enum class AnimationState
+{
+    idle,
+    down,
+    left,
+    up,
+    right
+};
+
 class EXPORT Game final : public Okaso_Engine
 {
 private:
@@ -13,6 +22,16 @@ private:
     shape::Rectangle* rectangle;
     Sprite* sprite;
     Sprite* sprite2;
+    Sprite* background;
+
+    Animation idle;
+    Animation left;
+    Animation right;
+    Animation up;
+    Animation down;
+
+    AnimationState currentAnimationState;
+    AnimationState newAnimationState;
     
 public:
     Game(int windowWidth,int windowHeight);
