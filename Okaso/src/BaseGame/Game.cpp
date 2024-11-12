@@ -1,69 +1,118 @@
-﻿#include "Game.h"
+#include "Game.h"
 
+#include "Colitions/Colitions.h"
 #include "Input/Input.h"
 #include "Input/KeyCode.h"
 
 Game::Game(int windowWidth, int windowHeight)
 {
-	this->windowWidth = windowWidth;
-	this->windowHeight = windowHeight;
-	init();
+    this->windowWidth = windowWidth;
+    this->windowHeight = windowHeight;
+    init();
 }
 
 Game::~Game()
 {
-	exit();
+    exit();
 }
 
 void Game::init()
 {
-	triangle = new shape::Triangle();
+    sprite = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/atlas.png", 0, 0, 3, 1, 1200, 1040, 120, 130);
+    sprite2 = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/atlas.png", 0, 0, 3, 1, 1200, 1040, 120, 130);
+    background = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/background.jpg", 0, 0, 1, 1, 2560, 1440, 2560, 1440);
 
-	rectangle = new shape::Rectangle();
+    idle = Animation(0, 0, 3, 1, 1200, 1040, 120, 130);
+    down = Animation(0, 520, 10, 1, 1200, 1040, 120, 130);
+    left = Animation(0, 650, 10, 1, 1200, 1040, 120, 130);
+    up = Animation(0, 780, 10, 1, 1200, 1040, 120, 130);
+    right = Animation(0, 910, 10, 1, 1200, 1040, 120, 130);
 
-	rectangle->SetColor(0, 1, 0);
-	triangle->SetColor(1, 0, 0);
-	
+    currentAnimationState = AnimationState::idle;
+
+    sprite->SetScale(120, 130, 1);
+    sprite2->SetScale(120, 130, 1);
+    background->SetScale(800, 800, 0);
+    sprite2->SetPosition(sprite2->GetPosition().x, sprite2->GetPosition().y + 200, 0);
+    sprite2->ForcePreviousPosAsCurrentPos();
+    sprite2->SetColor(1, 0, 0);
 }
 
 void Game::update()
 {
-	if (input->isKeyPressed(KEY_W))
-	{
-		triangle->Translate(0,2.0f,0);
-	}
-	if (input->isKeyPressed(KEY_S))
-	{
-		triangle->Translate(0,-2.0f,0);
-	}
-	if (input->isKeyPressed(KEY_D))
-	{
-		triangle->Translate(2.0f,0,0);
-	}
-	if (input->isKeyPressed(KEY_A))
-	{
-		triangle->Translate(-2.0f,0,0);
-	}
-	if (input->isKeyPressed(KEY_E))
-	{
-		triangle->Rotate(0,0,-2.0f);
-	}
-	if (input->isKeyPressed(KEY_Q))
-	{
-		triangle->Rotate(0,0,2.0f);
-	}
+    newAnimationState = AnimationState::idle;
 
-	//rectangle->Rotate(0, 0, -1.0f);
+    if (input->isKeyPressed(KEY_W))
+    {
+        sprite->Translate(0, 0.1f, 0);
+        Colitions::CheckCollitions(sprite, sprite2);
+        newAnimationState = AnimationState::up;
+    }
+    if (input->isKeyPressed(KEY_A))
+    {
+        sprite->Translate(-0.1f, 0, 0);
+        Colitions::CheckCollitions(sprite, sprite2);
+        newAnimationState = AnimationState::left;
+    }
+    if (input->isKeyPressed(KEY_S))
+    {
+        sprite->Translate(0, -0.1f, 0);
+        Colitions::CheckCollitions(sprite, sprite2);
+        newAnimationState = AnimationState::down;
+    }
+    if (input->isKeyPressed(KEY_D))
+    {
+        sprite->Translate(0.1f, 0, 0);
+        Colitions::CheckCollitions(sprite, sprite2);
+        newAnimationState = AnimationState::right;
+    }
 
+    if (newAnimationState != currentAnimationState)
+    {
+        switch (newAnimationState)
+        {
+        case AnimationState::idle:
+            sprite->ChangeAnimation(idle);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::down:
+            sprite->ChangeAnimation(down);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::left:
+            sprite->ChangeAnimation(left);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::up:
+            sprite->ChangeAnimation(up);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::right:
+            sprite->ChangeAnimation(right);
+            currentAnimationState = newAnimationState;
+            break;
+        default:
+            break;
+        }
+    }
 
-	//rectangle->Draw();
+    if (Colitions::CheckCollitions(sprite, sprite2))
+    {
+        cout << "Collision" << endl;
+    }
 
-	triangle->Draw();
+    background->Draw();
 
+    sprite2->UpdateAnimation();
+    sprite2->Draw();
+
+    sprite->UpdateAnimation();
+    sprite->Draw();
 }
 
 void Game::exit()
 {
-	delete triangle;
-	delete rectangle;
+    delete triangle;
+    delete rectangle;
+    delete sprite;
 }

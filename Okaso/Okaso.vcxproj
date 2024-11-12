@@ -151,15 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation\Animation.cpp" />
     <ClCompile Include="src\Animation\Frame.cpp" />
     <ClCompile Include="src\BaseGame\BaseGame.cpp" />
+    <ClCompile Include="src\Colitions\Colitions.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Primitives\Triangle.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp" />
-    <ClCompile Include="src\Entity\Entity2D\Sprite\Texture\Texture.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -238,29 +239,33 @@
     </ClCompile>
     <ClCompile Include="src\Utils\FilesReader.cpp" />
     <ClCompile Include="src\Utils\OkasoDebuger.cpp" />
+    <ClCompile Include="src\Utils\Time.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation\Animation.h" />
     <ClInclude Include="src\Animation\Frame.h" />
     <ClInclude Include="src\BaseGame\BaseGame.h" />
+    <ClInclude Include="src\Colitions\Colitions.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Rectangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Primitives\Triangle.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
     <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h" />
-    <ClInclude Include="src\Entity\Entity2D\Sprite\Texture\stb_image.h" />
-    <ClInclude Include="src\Entity\Entity2D\Sprite\Texture\Texture.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\Input\KeyCode.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Utils\FilesReader.h" />
     <ClInclude Include="src\Utils\OkasoDebuger.h" />
+    <ClInclude Include="src\Utils\stb_image.h" />
+    <ClInclude Include="src\Utils\Time.h" />
     <ClInclude Include="src\Utils\Utils.h" />
     <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\basic.abrazo" />
+    <None Include="res\shader\texture.abrazo" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

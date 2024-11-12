@@ -47,6 +47,20 @@ namespace OkasoEngine_Render
         /// </summary>
         GLbitfield Getbitfield();
 
+        void DeleteObjects(unsigned int* VAO, unsigned int* VBO, unsigned int* EBO);
+
+        /// <summary>
+        /// Creates a new Entity
+        /// <para> vertex : Entity vertex
+        /// <para> vertexCount : max count of vertex on the shape
+        /// <para> index : index of the vertex positions
+        /// <para> indexSize : max count of vertex index
+        /// <para> VBO : Vertex Buffer Object
+        /// <para> EBO : Element Buffer Object 
+        /// <para> VAO : Vertex Array Object
+        /// </summary>
+        void InitShape(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
+
         /// <summary>
         /// Renders a shape
         /// <para> VAO : Vertex Array Object
@@ -56,17 +70,13 @@ namespace OkasoEngine_Render
         /// </summary>
         void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
 
-        /// <summary>
-        /// Creates a new Shape
-        /// <para> vertex : Shape vertex
-        /// <para> vertexCount : max count of vertex on the shape
-        /// <para> index : index of the vertex positions
-        /// <para> indexSize : max count of vertex index
-        /// <para> VBO : Vertex Buffer Object
-        /// <para> EBO : Element Buffer Object 
-        /// <para> VAO : Vertex Array Object
-        /// </summary>
-        void InitShape(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
+        void InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
+
+        void InitTextureBuffers(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, unsigned int* texture);
+
+        void DrawSprite(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color, unsigned int* texture);
+
+        void InitTexture(const char* path, unsigned int* texture);
 
         /// <summary>
         /// Returns the current Renderer
@@ -78,7 +88,8 @@ namespace OkasoEngine_Render
 
     private:
         OkasoEngine_Window::Window* GLFWW;
-        unsigned int shader;
+        unsigned int basicShader;
+        unsigned int textureShader;
         static Renderer* rendererInstance;
         GLbitfield mask;
         glm::mat4 proj;

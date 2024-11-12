@@ -1,21 +1,25 @@
-﻿#include "Frame.h"
-#include "../Utils/OkasoDebuger.h"
+#include "Frame.h"
+#include "../glm/glm.hpp"
+#include <iostream>
 
-glm::vec2 Frame::get_uv_coord(int id)
+
+glm::vec2 Frame::getUVCoord(int id)
 {
     if (id >= maxFrameSize && id < 0)
     {
-        OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("ERROR :: Id UV outside range", OkasoEngine_Utilities::Error_L);
+        std::cout << "Id UV outside range" << std::endl;
         return {0, 0};
     }
     else
+    {
         return uvCoord[id];
+    }
 }
 
-Frame::Frame(glm::vec2 first_uv_coord, glm::vec2 second_uv_coord, glm::vec2 third_uv_coord, glm::vec2 fourth_uv_coord)
+Frame::Frame(glm::vec2 firstUV, glm::vec2 secondUV, glm::vec2 thirdUV, glm::vec2 fourthUV)
 {
-    uvCoord[0] = first_uv_coord;
-    uvCoord[1] = second_uv_coord;
-    uvCoord[2] = third_uv_coord;
-    uvCoord[3] = fourth_uv_coord;
+    uvCoord[1] = firstUV;
+    uvCoord[3] = secondUV;
+    uvCoord[2] = thirdUV;
+    uvCoord[0] = fourthUV;
 }
