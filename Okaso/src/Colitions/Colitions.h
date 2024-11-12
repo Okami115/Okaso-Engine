@@ -8,6 +8,7 @@ class EXPORT Colitions
 public:
     Colitions();
     ~Colitions();
+    bool CheckCollitions(Entity2D a, Entity2D b, bool isUpdatePos = false);
     /// <summary>
     /// CheckCollitions between two Entities
     /// </summary>
@@ -15,5 +16,5 @@ public:
     /// <summary>
     /// CheckCollitions between two Entities
     /// </summary>
-    static bool CheckCollitions(Entity2D *a,Entity2D *b);
+    static bool CheckCollitions(Entity2D *a,Entity2D *b, bool isUpdatePos = false);
 };

@@ -10,7 +10,7 @@ Colitions::~Colitions()
     OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("DELETED :: Colitions",OkasoEngine_Utilities::Info_L);
 }
 
-bool Colitions::CheckCollitions(Entity2D a, Entity2D b)
+bool Colitions::CheckCollitions(Entity2D a, Entity2D b, bool isUpdatePos)
 {
     float aRight = a.GetPosition().x + abs(a.GetScale().x) / 2;
     float bLeftSide = b.GetPosition().x - abs(b.GetScale().x) / 2;
@@ -31,15 +31,18 @@ bool Colitions::CheckCollitions(Entity2D a, Entity2D b)
 
     if (collisionX && collisionY)
     {
-        a.SetPreviousPosition();
+        if (!isUpdatePos)
+        {
+            a.SetPreviousPosition();
 
-        b.SetPreviousPosition();
+            b.SetPreviousPosition();
+        }
         return true;
     }
     return false;
 }
 
-bool Colitions::CheckCollitions(Entity2D* a, Entity2D* b)
+bool Colitions::CheckCollitions(Entity2D* a, Entity2D* b, bool isUpdatePos)
 {
     float aRight = a->GetPosition().x + abs(a->GetScale().x) / 2;
     float bLeftSide = b->GetPosition().x - abs(b->GetScale().x) / 2;
@@ -61,9 +64,12 @@ bool Colitions::CheckCollitions(Entity2D* a, Entity2D* b)
 
     if (collisionX && collisionY)
     {
-        a->SetPreviousPosition();
+        if (!isUpdatePos)
+        {
+            a->SetPreviousPosition();
 
-        b->SetPreviousPosition();
+            b->SetPreviousPosition();
+        }
         return true;
     }
     return false;
