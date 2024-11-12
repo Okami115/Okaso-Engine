@@ -18,53 +18,75 @@ Game::~Game()
 
 void Game::init()
 {
-    sprite = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/atlas.png", 0, 0, 3, 1, 1200, 1040, 120, 130);
-    sprite2 = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/atlas.png", 0, 0, 3, 1, 1200, 1040, 120, 130);
-    background = new Sprite("C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/background.jpg", 0, 0, 1, 1, 2560, 1440, 2560, 1440);
+    Knuckles = new Sprite("C:/Users/Aula 1/Desktop/Okaso-Engine/Okaso/res/Assets/Knuckles_Sprite_Sheet.png", 0, 0, 1, 1,
+                          646, 473, 35, 40);
+    rock = new Sprite("C:/Users/Aula 1/Desktop/Okaso-Engine/Okaso/res/Assets/Rock.jfif", 75, 17, 1, 1, 244, 207, 85,
+                      60);
+    background = new Sprite("C:/Users/Aula 1/Desktop/Okaso-Engine/Okaso/res/Assets/greenhills_background.jpg", 0, 0, 1,
+                            1, 1028, 720, 1028, 720);
 
-    idle = Animation(0, 0, 3, 1, 1200, 1040, 120, 130);
-    down = Animation(0, 520, 10, 1, 1200, 1040, 120, 130);
-    left = Animation(0, 650, 10, 1, 1200, 1040, 120, 130);
-    up = Animation(0, 780, 10, 1, 1200, 1040, 120, 130);
-    right = Animation(0, 910, 10, 1, 1200, 1040, 120, 130);
+    idle = Animation(0, 0, 1, 1, 646, 473, 35, 40);
+    right = Animation(0, 44, 8, 1, 646, 473, 41, 40);
+    spin = Animation(0, 128, 6, 1, 646, 473, 32, 28);
+    pushright = Animation(425, 90, 4, 1, 646, 473, 35, 40);
 
     currentAnimationState = AnimationState::idle;
 
-    sprite->SetScale(120, 130, 1);
-    sprite2->SetScale(120, 130, 1);
+    Knuckles->SetScale(50, 50, 1);
+    Knuckles->SetPosition(Knuckles->GetPosition().x - 300, Knuckles->GetPosition().y - 250, 0);
+    Knuckles->ForcePreviousPosAsCurrentPos();
+    rock->SetScale(120, 130, 1);
+    rock->SetPosition(rock->GetPosition().x + 300, rock->GetPosition().y - 230, 0);
+    rock->ForcePreviousPosAsCurrentPos();
     background->SetScale(800, 800, 0);
-    sprite2->SetPosition(sprite2->GetPosition().x, sprite2->GetPosition().y + 200, 0);
-    sprite2->ForcePreviousPosAsCurrentPos();
-    sprite2->SetColor(1, 0, 0);
 }
 
 void Game::update()
 {
     newAnimationState = AnimationState::idle;
 
+    if (Colitions::CheckCollitions(rock, Knuckles))
+    {
+        rock->Translate(2.0f, 0, 0);
+    }
+
     if (input->isKeyPressed(KEY_W))
     {
-        sprite->Translate(0, 0.1f, 0);
-        Colitions::CheckCollitions(sprite, sprite2);
-        newAnimationState = AnimationState::up;
+        Knuckles->Translate(0, 2.0f, 0);
+        Colitions::CheckCollitions(Knuckles, rock);
+        newAnimationState = AnimationState::right;
     }
     if (input->isKeyPressed(KEY_A))
     {
-        sprite->Translate(-0.1f, 0, 0);
-        Colitions::CheckCollitions(sprite, sprite2);
-        newAnimationState = AnimationState::left;
+        Knuckles->Translate(-2.0f, 0, 0);
+        Knuckles->SetRotation(0, 180.0f, 0);
+        Colitions::CheckCollitions(Knuckles, rock);
+        newAnimationState = AnimationState::right;
     }
-    if (input->isKeyPressed(KEY_S))
+
+    if (input->isKeyPressed(KEY_A) && input->isKeyPressed(KEY_C))
     {
-        sprite->Translate(0, -0.1f, 0);
-        Colitions::CheckCollitions(sprite, sprite2);
-        newAnimationState = AnimationState::down;
+        Knuckles->Translate(-2.0f, 0, 0);
+        Knuckles->SetRotation(0, 180.0f, 0);
+        Colitions::CheckCollitions(Knuckles, rock);
+        newAnimationState = AnimationState::spin;
     }
+
     if (input->isKeyPressed(KEY_D))
     {
-        sprite->Translate(0.1f, 0, 0);
-        Colitions::CheckCollitions(sprite, sprite2);
-        newAnimationState = AnimationState::right;
+        Knuckles->Translate(2.0f, 0, 0);
+        Knuckles->SetRotation(0, 0, 0);
+        if (Colitions::CheckCollitions(Knuckles, rock))
+            newAnimationState = AnimationState::pushRight;
+        else
+            newAnimationState = AnimationState::right;
+    }
+
+    if (input->isKeyPressed(KEY_D) && input->isKeyPressed(KEY_C))
+    {
+        Knuckles->Translate(2.5f, 0, 0);
+        Colitions::CheckCollitions(Knuckles, rock);
+        newAnimationState = AnimationState::spin;
     }
 
     if (newAnimationState != currentAnimationState)
@@ -72,23 +94,19 @@ void Game::update()
         switch (newAnimationState)
         {
         case AnimationState::idle:
-            sprite->ChangeAnimation(idle);
-            currentAnimationState = newAnimationState;
-            break;
-        case AnimationState::down:
-            sprite->ChangeAnimation(down);
-            currentAnimationState = newAnimationState;
-            break;
-        case AnimationState::left:
-            sprite->ChangeAnimation(left);
-            currentAnimationState = newAnimationState;
-            break;
-        case AnimationState::up:
-            sprite->ChangeAnimation(up);
+            Knuckles->ChangeAnimation(idle);
             currentAnimationState = newAnimationState;
             break;
         case AnimationState::right:
-            sprite->ChangeAnimation(right);
+            Knuckles->ChangeAnimation(right);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::spin:
+            Knuckles->ChangeAnimation(spin);
+            currentAnimationState = newAnimationState;
+            break;
+        case AnimationState::pushRight:
+            Knuckles->ChangeAnimation(pushright);
             currentAnimationState = newAnimationState;
             break;
         default:
@@ -96,23 +114,19 @@ void Game::update()
         }
     }
 
-    if (Colitions::CheckCollitions(sprite, sprite2))
-    {
-        cout << "Collision" << endl;
-    }
 
     background->Draw();
 
-    sprite2->UpdateAnimation();
-    sprite2->Draw();
+    rock->UpdateAnimation();
+    rock->Draw();
 
-    sprite->UpdateAnimation();
-    sprite->Draw();
+    Knuckles->UpdateAnimation();
+    Knuckles->Draw();
 }
 
 void Game::exit()
 {
     delete triangle;
     delete rectangle;
-    delete sprite;
+    delete Knuckles;
 }

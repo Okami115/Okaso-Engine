@@ -7,10 +7,9 @@
 enum class AnimationState
 {
     idle,
-    down,
-    left,
-    up,
-    right
+    right,
+    spin,
+    pushRight
 };
 
 class EXPORT Game final : public Okaso_Engine
@@ -20,8 +19,8 @@ private:
     int windowHeight = 400;
     shape::Triangle* triangle;
     shape::Rectangle* rectangle;
-    Sprite* sprite;
-    Sprite* sprite2;
+    Sprite* Knuckles;
+    Sprite* rock;
     Sprite* background;
 
     Animation idle;
@@ -29,6 +28,8 @@ private:
     Animation right;
     Animation up;
     Animation down;
+    Animation spin;
+    Animation pushright;
 
     AnimationState currentAnimationState;
     AnimationState newAnimationState;
