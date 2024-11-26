@@ -44,30 +44,30 @@ void Game::update()
 
 	if (input->isKeyPressed(KEY_W))
 	{
-		Knuckles->Translate(0, 0.1f, 0);
-		dirY = 0.1f;
-		isColicion = Colitions::CheckCollitions(Knuckles, rock, true);
-		newAnimationState = AnimationState::walk;
-	}
-	if (input->isKeyPressed(KEY_A))
-	{
-		Knuckles->Translate(-0.1f, 0, 0);
-		dirX = -0.1f;
-		Knuckles->SetScale(-80, 80, 1);
-		isColicion = Colitions::CheckCollitions(Knuckles, rock, true);
+		Knuckles->Translate(0, 1.1f, 0);
+		dirY = 1.1f;
+		isColicion = Colitions::CheckCollitions(Knuckles, rock, false);
 		newAnimationState = AnimationState::walk;
 	}
 	if (input->isKeyPressed(KEY_S))
 	{
-		Knuckles->Translate(0, -0.1f, 0);
-		dirY = -0.1f;
+		Knuckles->Translate(0, -1.1f, 0);
+		dirY = -1.1f;
+		isColicion = Colitions::CheckCollitions(Knuckles, rock, false);
+		newAnimationState = AnimationState::walk;
+	}
+	if (input->isKeyPressed(KEY_A))
+	{
+		Knuckles->Translate(-1.1f, 0, 0);
+		dirX = -1.1f;
+		Knuckles->SetScale(-80, 80, 1);
 		isColicion = Colitions::CheckCollitions(Knuckles, rock, true);
 		newAnimationState = AnimationState::walk;
 	}
 	if (input->isKeyPressed(KEY_D))
 	{
-		Knuckles->Translate(0.1f, 0, 0);
-		dirX = 0.1f;
+		Knuckles->Translate(1.1f, 0, 0);
+		dirX = 1.1f;
 		Knuckles->SetScale(80, 80, 1);
 		isColicion = Colitions::CheckCollitions(Knuckles, rock, true);
 		newAnimationState = AnimationState::walk;
@@ -81,9 +81,12 @@ void Game::update()
 
 	if (isColicion)
 	{
-		newAnimationState = AnimationState::Push;
-		rock->Translate(dirX, dirY, 0);
-		isColicion = false;
+		if (dirX != 0) 
+		{
+			newAnimationState = AnimationState::Push;
+			rock->Translate(dirX, 0, 0);
+			isColicion = false;
+		}
 	}
 
 
