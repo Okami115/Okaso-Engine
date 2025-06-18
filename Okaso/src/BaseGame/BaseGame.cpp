@@ -29,6 +29,8 @@ void Okaso_Engine::initGame()
     /* Create a windowed mode window and its OpenGL context */
     window = new OkasoEngine_Window::Window();
     input = new OkasoEngine_Input::Input(window);
+    camera = new Camera();
+    
     if (!window)
     {
         OkasoDebuger::OKE_Debug("WINDOW::FAIL::INIT",Fatal_L);
@@ -44,7 +46,7 @@ void Okaso_Engine::initGame()
 
     
 
-    renderer = new OkasoEngine_Render::Renderer(window);
+    renderer = new OkasoEngine_Render::Renderer(window, camera);
     if (!renderer)
     {
         OkasoDebuger::OKE_Debug("RENDERER::FAIL::INIT",Fatal_L);
@@ -73,6 +75,7 @@ void Okaso_Engine::gameLoop()
     while (!glfwWindowShouldClose(window->getWindow()))
     {
         Time::setTime();
+        camera->Translate();
         renderer->BeginDrawing();
         update();
         renderer->EndDrawing();

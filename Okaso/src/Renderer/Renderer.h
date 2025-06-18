@@ -4,6 +4,7 @@
 #include "../Utils/Utils.h"
 #include "../glm/glm.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
+#include "../Camara/Camera.h"
 
 namespace OkasoEngine_Render
 {
@@ -19,7 +20,7 @@ namespace OkasoEngine_Render
         /// <para> window : Window for the program to renderise in 
         /// <para> mask : the mask for the window render
         /// </summary>
-        Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, GLbitfield mask = DEFAULT_MASK);
+        Renderer(OkasoEngine_Window::Window* window = DEFAULT_WINDOW, Camera* camera = nullptr ,GLbitfield mask = DEFAULT_MASK);
         ~Renderer();
         
         /// <summary>
@@ -87,6 +88,7 @@ namespace OkasoEngine_Render
         const unsigned int SCR_HEIGHT = 600;
 
     private:
+        Camera* camera;
         OkasoEngine_Window::Window* GLFWW;
         unsigned int basicShader;
         unsigned int textureShader;

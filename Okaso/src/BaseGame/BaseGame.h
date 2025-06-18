@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../Camara/Camera.h"
 #include "../Window/Window.h"
 #include "../Renderer/Renderer.h"
 #include "../Entity/Entity2D/Shape/Primitives/Triangle.h"
@@ -43,6 +44,7 @@ public:
 private:
     OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
+    Camera* camera;
 
     /// <summary>
     /// Initialize the engine core 

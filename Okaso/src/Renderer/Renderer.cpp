@@ -3,7 +3,7 @@
 #include "../glm/glm.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
 #include "../glm/gtc/type_ptr.hpp"
-
+#include "../Camara/Camera.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
 
@@ -58,7 +58,7 @@ namespace OkasoEngine_Render
 
     Renderer* Renderer::rendererInstance = nullptr;
 
-    Renderer::Renderer(OkasoEngine_Window::Window* window, GLbitfield mask)
+    Renderer::Renderer(OkasoEngine_Window::Window* window, Camera* camera, GLbitfield mask)
     {
         this->GLFWW = window;
         this->mask = mask;
@@ -74,6 +74,8 @@ namespace OkasoEngine_Render
         glEnable(GL_DEPTH);
         glDepthFunc(GL_LESS);
 
+        this->camera = camera;
+        
         glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
         glEnable(GL_SAMPLE_ALPHA_TO_ONE);
         glFrontFace(GL_CCW);
@@ -86,7 +88,8 @@ namespace OkasoEngine_Render
         
         view = glm::mat4(1.0f);
         proj = glm::perspective(45.0f, aspectRatio, 0.01f, 1000.0f);
-        view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
+        //view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
+        view = glm::lookAt(camera->position, camera->position + camera->forward, camera->up);
     }
 
     Renderer::~Renderer()
@@ -95,10 +98,12 @@ namespace OkasoEngine_Render
         glDeleteProgram(textureShader);
         OkasoDebuger::OKE_Debug("DELETE :: Renderer",Info_L);
     }
-
     void Renderer::BeginDrawing()
+
     {
         /* Render here */
+        view = glm::lookAt(camera->position, camera->position + camera->forward, camera->up);
+        OkasoDebuger::OKE_Debug("CAMERA :: Position " + std::to_string(camera->position.x)+ " " +std::to_string(camera->position.y) + " " + std::to_string(camera->position.z),Info_L);
         glClear(mask);
         glUseProgram(basicShader);
     }
