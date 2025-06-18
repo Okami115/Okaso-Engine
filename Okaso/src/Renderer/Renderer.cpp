@@ -82,8 +82,10 @@ namespace OkasoEngine_Render
         glEnable(GL_ALPHA);
         glAlphaFunc(GL_GREATER, 0.1f);
 
+        float aspectRatio = window->GetWindowWidth() / window->GetWindowHeight();
+        
         view = glm::mat4(1.0f);
-        proj = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+        proj = glm::perspective(45.0f, aspectRatio, 0.01f, 1000.0f);
         view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
     }
 
