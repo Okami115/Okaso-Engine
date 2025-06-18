@@ -11,15 +11,29 @@ namespace OkasoEngine_Input
         Input(OkasoEngine_Window::Window* engineWindow);
         Input();
         ~Input();
+        void Update();
         void setInputWindow(OkasoEngine_Window::Window* engineWindow);
-    
-        bool isKeyPressed(KeyKode keycode);
-        bool isKeyRepeated(KeyKode keycode);
+
+        bool isKeyPressed(int key);
+        bool isKeyDown(int key);
         void callBack(OkasoEngine_Window::Window* engineWindow, int key, int scancode, int action, int mods);
-        bool isKeyReleased(KeyKode keycode);
+
+        void UpdateMouse();
+        float GetMouseDeltaX() const;
+        float GetMouseDeltaY() const;
     
     private:
         OkasoEngine_Window::Window* engineWindow;
+
+        double lastX = 0.0;
+        double lastY = 0.0;
+        float deltaX = 0.0f;
+        float deltaY = 0.0f;
+        bool firstMouse = true;
+
+        
+        bool currentKeys[GLFW_KEY_LAST] = { false };
+        bool previousKeys[GLFW_KEY_LAST] = { false };
     };
 }
 

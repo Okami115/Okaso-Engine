@@ -29,7 +29,8 @@ void Okaso_Engine::initGame()
     /* Create a windowed mode window and its OpenGL context */
     window = new OkasoEngine_Window::Window();
     input = new OkasoEngine_Input::Input(window);
-    camera = new Camera(input);
+    camera = new Camera(input, window);
+    glfwSetInputMode(window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     
     if (!window)
     {
@@ -75,6 +76,7 @@ void Okaso_Engine::gameLoop()
     while (!glfwWindowShouldClose(window->getWindow()))
     {
         Time::setTime();
+        input->Update();
         camera->Translate();
         camera->Rotate();
         renderer->BeginDrawing();

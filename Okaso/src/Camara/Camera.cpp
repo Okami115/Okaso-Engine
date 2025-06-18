@@ -1,6 +1,6 @@
 ﻿#include "Camera.h"
 
-Camera::Camera(OkasoEngine_Input::Input* input)
+Camera::Camera(OkasoEngine_Input::Input* input, OkasoEngine_Window::Window* window)
 {
     position = glm::vec3(0, 0, 0);
     up = glm::vec3(0, 1, 0);
@@ -10,27 +10,49 @@ Camera::Camera(OkasoEngine_Input::Input* input)
     UpdateVectors();
     
     this->input = input;
+    this->window = window;
 }
 
 void Camera::Translate()
 {
     if (input != nullptr)
     {
-        if(input->isKeyPressed(KEY_W))
+        if (!isMouseEnable)
         {
-            position -= forward * 0.1f;
+            if(input->isKeyPressed(KEY_LEFT_SHIFT))
+                speed = 5.0f;
+            else
+                speed = 2.5f;
+
+            
+            if(input->isKeyPressed(KEY_W))
+            {
+                position += forward * 0.1f * speed;
+            }
+            if(input->isKeyPressed(KEY_S))
+            {
+                position -= forward * 0.1f * speed;
+            }
+            if(input->isKeyPressed(KEY_A))
+            {
+                position -= right * 0.1f * speed;
+            }
+            if(input->isKeyPressed(KEY_D))
+            {
+                position += right * 0.1f * speed;
+            }
         }
-        if(input->isKeyPressed(KEY_S))
+
+        if (input->isKeyPressed(KEY_ESCAPE))
         {
-            position += forward * 0.1f;
-        }
-        if(input->isKeyPressed(KEY_A))
-        {
-            position -= right * 0.1f;
-        }
-        if(input->isKeyPressed(KEY_D))
-        {
-            position += right * 0.1f;
+            if (input->isKeyDown(GLFW_KEY_ESCAPE))
+            {
+                isMouseEnable = !isMouseEnable;
+
+                glfwSetInputMode(window->getWindow(),
+                    GLFW_CURSOR,
+                    isMouseEnable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+            }
         }
     }
 }
@@ -39,29 +61,17 @@ void Camera::Rotate()
 {
     if (input != nullptr)
     {
-        float rotationSpeed = 1.0f;
+        if (!isMouseEnable)
+        {
+            float dx = input->GetMouseDeltaX();
+            float dy = input->GetMouseDeltaY();
 
-        if (input->isKeyPressed(KEY_LEFT))
-        {
-            yaw -= rotationSpeed;
+            yaw += dx * sensitivity;
+            pitch -= dy * sensitivity;
+            
+            if (pitch > 89.0f) pitch = 89.0f;
+            if (pitch < -89.0f) pitch = -89.0f;
         }
-        if (input->isKeyPressed(KEY_RIGHT))
-        {
-            yaw += rotationSpeed;
-        }
-        if (input->isKeyPressed(KEY_UP))
-        {
-            pitch += rotationSpeed;
-        }
-        if (input->isKeyPressed(KEY_DOWN))
-        {
-            pitch -= rotationSpeed;
-        }
-        
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
 
         UpdateVectors();
     }

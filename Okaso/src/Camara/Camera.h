@@ -14,9 +14,12 @@ public:
     float fov = 45.0f;
     float speed = 2.5f;
     float sensitivity = 0.1f;
-    Camera(OkasoEngine_Input::Input* input = nullptr);
+    Camera(OkasoEngine_Input::Input* input = nullptr, OkasoEngine_Window::Window* window = nullptr);
     void Translate();
     void Rotate();
     void UpdateVectors();
+private:
+    OkasoEngine_Window::Window* window;
     OkasoEngine_Input::Input* input;
+    bool isMouseEnable = false;
 };
