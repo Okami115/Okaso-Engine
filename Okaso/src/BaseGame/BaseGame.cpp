@@ -77,8 +77,7 @@ void Okaso_Engine::gameLoop()
     {
         Time::setTime();
         input->Update();
-        camera->Translate();
-        camera->Rotate();
+        camera->Update();
         renderer->BeginDrawing();
         update();
         renderer->EndDrawing();

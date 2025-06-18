@@ -13,6 +13,29 @@ Camera::Camera(OkasoEngine_Input::Input* input, OkasoEngine_Window::Window* wind
     this->window = window;
 }
 
+void Camera::Update()
+{
+    if (input->isKeyPressed(KEY_ESCAPE))
+    {
+        if (input->isKeyDown(GLFW_KEY_ESCAPE))
+        {
+            isMouseEnable = !isMouseEnable;
+
+            glfwSetInputMode(window->getWindow(),
+                GLFW_CURSOR,
+                isMouseEnable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+        }
+    }
+
+    if (input->isKeyDown(KEY_TAB)) {
+        isThirdPerson = !isThirdPerson;
+    }
+    
+    Translate();
+    Rotate();
+    UpdateVectors();
+}
+
 void Camera::Translate()
 {
     if (input != nullptr)
@@ -42,18 +65,6 @@ void Camera::Translate()
                 position += right * 0.1f * speed;
             }
         }
-
-        if (input->isKeyPressed(KEY_ESCAPE))
-        {
-            if (input->isKeyDown(GLFW_KEY_ESCAPE))
-            {
-                isMouseEnable = !isMouseEnable;
-
-                glfwSetInputMode(window->getWindow(),
-                    GLFW_CURSOR,
-                    isMouseEnable ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
-            }
-        }
     }
 }
 
@@ -72,18 +83,29 @@ void Camera::Rotate()
             if (pitch > 89.0f) pitch = 89.0f;
             if (pitch < -89.0f) pitch = -89.0f;
         }
-
-        UpdateVectors();
     }
 }
 
 void Camera::UpdateVectors()
 {
-    glm::vec3 newForward;
-    newForward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    newForward.y = sin(glm::radians(pitch));
-    newForward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    forward = glm::normalize(newForward);
+    if (isThirdPerson)
+    {
+        float x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        float y = sin(glm::radians(pitch));
+        float z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        glm::vec3 offset = glm::normalize(glm::vec3(x, y, z)) * distanceToTarget;
+
+        position = target - offset;
+        forward = glm::normalize(target - position);
+    }
+    else
+    {
+        glm::vec3 newForward;
+        newForward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        newForward.y = sin(glm::radians(pitch));
+        newForward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        forward = glm::normalize(newForward);
+    }
     
     glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     right = glm::normalize(glm::cross(forward, worldUp));

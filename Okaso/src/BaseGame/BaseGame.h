@@ -40,11 +40,11 @@ public:
     /// Virtual Function For the destruction of the engine implementation
     /// </summary>
     virtual void exit();
+    Camera* camera;
 
 private:
     OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
-    Camera* camera;
 
     /// <summary>
     /// Initialize the engine core 
