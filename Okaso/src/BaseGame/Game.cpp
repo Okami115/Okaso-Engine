@@ -14,20 +14,19 @@ Game::~Game()
 
 void Game::init()
 {
-	triangle = new shape::Triangle();
-	triangle->SetColor(1,0,0);
-	triangle->SetPosition(0,0, 0);
-	triangle->SetScale(1,1,1);
-	camera->target = triangle->GetPosition();
+	cube = new Cube();
+	cube->SetColor(0, 0, 1);
+	cube->SetPosition(0, 0, 0);
+	camera->target = cube->GetPosition();
 	camera->distanceToTarget = 100.0f;
 }
 
 void Game::update()
 {
-	triangle->Draw();
+	cube->Draw();
 }
 
 void Game::exit()
 {
-	delete triangle;
+	delete cube;
 }
