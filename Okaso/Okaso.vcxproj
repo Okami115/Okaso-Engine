@@ -240,6 +240,8 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\Utils\FilesReader.cpp" />
+    <ClCompile Include="src\Utils\Light.cpp" />
+    <ClCompile Include="src\Utils\Material.cpp" />
     <ClCompile Include="src\Utils\OkasoDebuger.cpp" />
     <ClCompile Include="src\Utils\Time.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
@@ -261,6 +263,8 @@
     <ClInclude Include="src\Input\KeyCode.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
     <ClInclude Include="src\Utils\FilesReader.h" />
+    <ClInclude Include="src\Utils\Light.h" />
+    <ClInclude Include="src\Utils\Material.h" />
     <ClInclude Include="src\Utils\OkasoDebuger.h" />
     <ClInclude Include="src\Utils\stb_image.h" />
     <ClInclude Include="src\Utils\Time.h" />

@@ -41,9 +41,10 @@ public:
     /// </summary>
     virtual void exit();
     Camera* camera;
+    
+    OkasoEngine_Render::Renderer* renderer;
 
 private:
-    OkasoEngine_Render::Renderer* renderer;
     OkasoEngine_Window::Window* window;
 
     /// <summary>

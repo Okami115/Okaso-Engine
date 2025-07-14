@@ -5,6 +5,9 @@
 #include "../glm/glm.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
 #include "../Camara/Camera.h"
+#include "../Utils/Material.h"
+#include "../Utils/Light.h"
+
 
 namespace OkasoEngine_Render
 {
@@ -70,6 +73,10 @@ namespace OkasoEngine_Render
         /// <para> color : color of the shape
         /// </summary>
         void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
+        void Init3DEntity(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO,
+                          unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
+
+        void Draw3DEntity(unsigned VAO, int sizeIndices, glm::vec3 color, glm::mat4x4 model, Material material, unsigned& texture, bool isUsingTexture);
 
         void InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
 
@@ -86,12 +93,17 @@ namespace OkasoEngine_Render
         
         const unsigned int SCR_WIDTH = 800;
         const unsigned int SCR_HEIGHT = 600;
+        
+        dirLight dirLight;
+        pointLight pointLight[1];
+        spotLight spotLight;
 
     private:
         Camera* camera;
         OkasoEngine_Window::Window* GLFWW;
         unsigned int basicShader;
         unsigned int textureShader;
+        unsigned int lightingShader;
         static Renderer* rendererInstance;
         GLbitfield mask;
         glm::mat4 proj;

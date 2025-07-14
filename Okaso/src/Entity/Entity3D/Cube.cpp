@@ -3,33 +3,74 @@ Cube::Cube()
 {
     OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("INIT :: Cube", OkasoEngine_Utilities::Info_L);
 
-    float vertices[] = {
-        // Front face
-        -100.0f, -100.0f,  100.0f,
-         100.0f, -100.0f,  100.0f,
-        -100.0f,  100.0f,  100.0f,
-         100.0f,  100.0f,  100.0f,
-        // Back face
-        -100.0f, -100.0f, -100.0f,
-         100.0f, -100.0f, -100.0f,
-        -100.0f,  100.0f, -100.0f,
-         100.0f,  100.0f, -100.0f
-    };
+    int vertexSize = 288;
 
-    unsigned int indices[] = {
-        0, 1, 3, 0, 3, 2,      // Front
-        1, 5, 7, 1, 7, 3,      // Right
-        5, 4, 6, 5, 6, 7,      // Back
-        4, 0, 2, 4, 2, 6,      // Left
-        2, 3, 7, 2, 7, 6,      // Top
-        4, 5, 1, 4, 1, 0       // Bottom
+    float* vertexPositions = new float[vertexSize]{
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+
+        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+        -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+
+        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+        0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
+    };
+    int indexSize = 36;
+    unsigned int* indices = new unsigned int[indexSize]{
+        0, 1, 2,
+        3, 4, 5,
+        6, 7, 8,
+        9, 10, 11,
+        12, 13, 14,
+        15, 16, 17,
+        18, 19, 20,
+        21, 22, 23,
+        24, 25, 26,
+        27, 28, 29,
+        30, 31, 32,
+        33, 34, 35
     };
 
     VBO = new unsigned int;
     EBO = new unsigned int;
     VAO = new unsigned int;
 
-    renderer->InitShape(vertices, 24, indices, 36, VBO, EBO, VAO);
+    texture = new unsigned int;
+
+    renderer->Init3DEntity(vertexPositions, vertexSize, indices, indexSize, VBO, EBO, VAO, "C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/Texture.jpg", texture);
 }
 
 Cube::~Cube()
@@ -39,5 +80,5 @@ Cube::~Cube()
 
 void Cube::Draw()
 {
-    renderer->DrawShape(VAO, model, 36, GetColor());
+    renderer->Draw3DEntity(*VAO, 36, GetColor(), model, DEFAULT_MATERIAL, *texture,true);
 }

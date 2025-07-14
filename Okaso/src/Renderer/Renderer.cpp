@@ -6,6 +6,7 @@
 #include "../Camara/Camera.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
+#include "../Utils/Material.h"
 
 using namespace OkasoEngine_Utilities;
 
@@ -64,31 +65,33 @@ namespace OkasoEngine_Render
         this->mask = mask;
         rendererInstance = this;
         OkasoDebuger::OKE_Debug("INIT :: Renderer",Info_L);
-
+        
         ShaderProgram shaderFile = OkasoUtils::ParseShader("../Okaso/res/shader/basic.abrazo");
         basicShader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
         
         shaderFile = OkasoUtils::ParseShader("../Okaso/res/shader/texture.abrazo");
         textureShader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
 
-        glEnable(GL_DEPTH);
+        shaderFile = OkasoUtils::ParseShader("../Okaso/res/shader/ligthning.abrazo");
+        lightingShader = CreateShader(shaderFile.vertexShader, shaderFile.fragmentShader);
+        
+        this->camera = camera;
+
+        glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
-        this->camera = camera;
-        
         glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
         glEnable(GL_SAMPLE_ALPHA_TO_ONE);
         glFrontFace(GL_CCW);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_ALPHA);
+        glEnable(GL_ALPHA_TEST);
         glAlphaFunc(GL_GREATER, 0.1f);
 
         float aspectRatio = window->GetWindowWidth() / window->GetWindowHeight();
         
         view = glm::mat4(1.0f);
-        proj = glm::perspective(45.0f, aspectRatio, 0.01f, 1000.0f);
-        //view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0), glm::vec3(0,1,0));
+        proj = glm::perspective(45.0f, aspectRatio, 0.001f, 1000.0f);
         view = glm::lookAt(camera->position, camera->position + camera->forward, camera->up);
     }
 
@@ -104,7 +107,7 @@ namespace OkasoEngine_Render
         /* Render here */
         view = glm::lookAt(camera->position, camera->position + camera->forward, camera->up);
         OkasoDebuger::OKE_Debug("CAMERA :: Position " + std::to_string(camera->position.x)+ " " +std::to_string(camera->position.y) + " " + std::to_string(camera->position.z),Info_L);
-        glClear(mask);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(basicShader);
     }
 
@@ -143,20 +146,26 @@ namespace OkasoEngine_Render
         glGenVertexArrays(1, VAO);
         glGenBuffers(1, VBO);
         glGenBuffers(1, EBO);
-
+        // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
         glBindVertexArray(*VAO);
 
         glBindBuffer(GL_ARRAY_BUFFER, *VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount, vertex, GL_STATIC_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indexSize, index, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * indexSize, index, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
+
         glBindVertexArray(0);
     }
     
@@ -173,11 +182,150 @@ namespace OkasoEngine_Render
         unsigned int viewLoc = glGetUniformLocation(basicShader, "view");
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
 
-        int vertexColorLocation = glGetUniformLocation(basicShader, "ourColor");
+        int vertexColorLocation = glGetUniformLocation(basicShader, "objectColor");
         glUniform3f(vertexColorLocation, color.r, color.g, color.b);
 
         glBindVertexArray(*VAO);
         glDrawElements(GL_TRIANGLES, elementsCount, GL_UNSIGNED_INT, 0);
+    }
+
+    void Renderer::Init3DEntity(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture)
+    {
+        glGenVertexArrays(1, VAO);
+        glGenBuffers(1, VBO);
+        glGenBuffers(1, EBO);
+        // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+        glBindVertexArray(*VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, *VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount, vertex, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * indexSize, index, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        glBindVertexArray(0);
+
+        InitTexture(path, texture);
+    }
+    
+    void Renderer::Draw3DEntity(unsigned VAO, int sizeIndices, glm::vec3 color, glm::mat4x4 model, Material material, unsigned& texture, bool isUsingTexture)
+    {
+        glBindVertexArray(VAO);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        
+        glUseProgram(lightingShader);
+
+        unsigned int transformLoc = glGetUniformLocation(lightingShader, "model");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &model[0][0]);
+
+        unsigned int projLoc = glGetUniformLocation(lightingShader, "projection");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &proj[0][0]);
+
+        unsigned int viewLoc = glGetUniformLocation(lightingShader, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+
+        int vertexColorLocation = glGetUniformLocation(lightingShader, "objectColor");
+        glUniform3f(vertexColorLocation, color.r, color.g, color.b);
+
+        int useTextureLoc = glGetUniformLocation(lightingShader, "useTexture");
+        glUniform1i(useTextureLoc, isUsingTexture);
+        
+        int viewPosLocation = glGetUniformLocation(lightingShader, "viewPos");
+        glUniform3f(viewPosLocation, camera->position.x, camera->position.y, camera->position.z);
+
+        int dirLightLoc = glGetUniformLocation(lightingShader, "dirLight.direction");
+        glUniform3f(dirLightLoc, dirLight.direction.x, dirLight.direction.y, dirLight.direction.z);
+
+        dirLightLoc = glGetUniformLocation(lightingShader, "dirLight.diffuse");
+        glUniform3f(dirLightLoc, dirLight.diffuse.x, dirLight.diffuse.y, dirLight.diffuse.z);
+
+        dirLightLoc = glGetUniformLocation(lightingShader, "dirLight.specular");
+        glUniform3f(dirLightLoc, dirLight.specular.x, dirLight.specular.y, dirLight.specular.z);
+
+        dirLightLoc = glGetUniformLocation(lightingShader, "dirLight.ambient");
+        glUniform3f(dirLightLoc, dirLight.ambient.x, dirLight.ambient.y, dirLight.ambient.z);
+
+
+        for (int i = 0; i < 1; i++)
+        {
+            int pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].position").c_str());
+            glUniform3f(pointLightsLoc, pointLight[i].position.x, pointLight[i].position.y, pointLight[i].position.z);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].ambient").c_str());
+            glUniform3f(pointLightsLoc, pointLight[i].ambient.x, pointLight[i].ambient.y, pointLight[i].ambient.z);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].diffuse").c_str());
+            glUniform3f(pointLightsLoc, pointLight[i].diffuse.x, pointLight[i].diffuse.y, pointLight[i].diffuse.z);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].specular").c_str());
+            glUniform3f(pointLightsLoc, pointLight[i].specular.x, pointLight[i].specular.y, pointLight[i].specular.z);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].linear").c_str());
+            glUniform1f(pointLightsLoc, pointLight[i].linear);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].constant").c_str());
+            glUniform1f(pointLightsLoc, pointLight[i].constant);
+
+            pointLightsLoc = glGetUniformLocation(lightingShader, ("pointLights["+ std::to_string(i) +"].quadratic").c_str());
+            glUniform1f(pointLightsLoc, pointLight[i].quadratic);
+
+        }
+        
+
+        int spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.position");
+        glUniform3f(spotLightsLoc, spotLight.position.x, spotLight.position.y, spotLight.position.z);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.ambient");
+        glUniform3f(spotLightsLoc, spotLight.ambient.x, spotLight.ambient.y, spotLight.ambient.z);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.diffuse");
+        glUniform3f(spotLightsLoc, spotLight.diffuse.x, spotLight.diffuse.y, spotLight.diffuse.z);
+        
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.specular");
+        glUniform3f(spotLightsLoc, spotLight.specular.x, spotLight.specular.y, spotLight.specular.z);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.direction");
+        glUniform3f(spotLightsLoc, spotLight.direction.x, spotLight.direction.y, spotLight.direction.z);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.cutOff");
+        glUniform1f(spotLightsLoc, spotLight.cutOff);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.quadratic");
+        glUniform1f(spotLightsLoc, spotLight.quadratic);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.outerCutOff");
+        glUniform1f(spotLightsLoc, spotLight.outerCutOff);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.constant");
+        glUniform1f(spotLightsLoc, spotLight.constant);
+
+        spotLightsLoc = glGetUniformLocation(lightingShader, "spotLight.linear");
+        glUniform1f(spotLightsLoc, spotLight.linear);
+
+        int materialLoc = glGetUniformLocation(lightingShader, "material.ambient");
+        glUniform3f(materialLoc, material.ambient.x, material.ambient.y, material.ambient.z);
+        
+        materialLoc = glGetUniformLocation(lightingShader, "material.diffuse");
+        glUniform3f(materialLoc, material.diffuse.x, material.diffuse.y, material.diffuse.z);
+
+        materialLoc = glGetUniformLocation(lightingShader, "material.specular");
+        glUniform3f(materialLoc, material.specular.x, material.specular.y, material.specular.z);
+
+        materialLoc = glGetUniformLocation(lightingShader, "material.shininess");
+        glUniform1f(materialLoc, material.shininess);
+        
+        glDrawElements(GL_TRIANGLES, sizeIndices, GL_UNSIGNED_INT, 0);
     }
 
     void Renderer::InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture)
@@ -274,6 +422,8 @@ namespace OkasoEngine_Render
 
         if (data)
         {
+            OkasoDebuger::OKE_Debug("GOOD :: INIT TEXTURE", Info_L);
+            
             GLenum format;
 
             if (nrChannels == 1)
@@ -294,7 +444,7 @@ namespace OkasoEngine_Render
         }
         else
         {
-            std::cout << "Failed to load texture" << std::endl;
+            OkasoDebuger::OKE_Debug("ERROR :: INIT TEXTURE",Error_L);
         }
         stbi_image_free(data);
     }
