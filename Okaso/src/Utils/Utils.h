@@ -54,12 +54,13 @@ namespace OkasoEngine_Utilities
 		}
 	};
 
-	struct EXPORT Vertex
+	class EXPORT Vertex
 	{
+	public:
 		glm::vec3 Position;
 		glm::vec3 Normal;
 		glm::vec2 TexCoords;
-
+		
 		Vertex(glm::vec3 pos = glm::vec3(), glm::vec3 normal = glm::vec3(), glm::vec2 TexCoords = glm::vec3())
 		{
 			this->Position = pos;
@@ -68,15 +69,16 @@ namespace OkasoEngine_Utilities
 		}
 	};
 
-	struct EXPORT Texture
+	class EXPORT Texture
 	{
-		unsigned int id;
-		std::string type;
-		std::string path;
+	public:
+		unsigned int* id;
+		const char* type;
+		const char* path;
 
-		Texture(unsigned int id, std::string type, std::string path)
+		Texture(const char* type, const char* path)
 		{
-			this->id = id;
+			id = new unsigned int();
 			this->type = type;
 			this->path = path;
 		}

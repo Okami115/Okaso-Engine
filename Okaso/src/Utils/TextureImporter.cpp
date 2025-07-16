@@ -1,5 +1,5 @@
-﻿#include "TextureImporter.h"
-#include <glew.h>
+﻿#include <glew.h>
+#include "TextureImporter.h"
 #include "OkasoDebuger.h"
 #include "stb_image.h"
 
@@ -23,8 +23,6 @@ void TextureImporter::InitTexture(const char* path, unsigned int* texture)
 
     if (data)
     {
-        OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("GOOD :: INIT TEXTURE", OkasoEngine_Utilities::Info_L);
-            
         GLenum format;
 
         if (nrChannels == 1)
@@ -48,4 +46,5 @@ void TextureImporter::InitTexture(const char* path, unsigned int* texture)
         OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("ERROR :: INIT TEXTURE", OkasoEngine_Utilities::Error_L);
     }
     stbi_image_free(data);
+    OkasoEngine_Utilities::OkasoDebuger::OKE_Debug("INIT TEXTURE :: " + *path, OkasoEngine_Utilities::Info_L);
 }

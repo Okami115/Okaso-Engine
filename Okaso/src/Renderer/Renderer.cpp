@@ -102,17 +102,15 @@ namespace OkasoEngine_Render
     {
         glDeleteProgram(basicShader);
         glDeleteProgram(textureShader);
+        glDeleteProgram(lightingShader);
         OkasoDebuger::OKE_Debug("DELETE :: Renderer", Info_L);
     }
 
     void Renderer::BeginDrawing()
-
     {
         /* Render here */
         view = glm::lookAt(camera->position, camera->position + camera->forward, camera->up);
-        OkasoDebuger::OKE_Debug(
-            "CAMERA :: Position " + std::to_string(camera->position.x) + " " + std::to_string(camera->position.y) + " "
-            + std::to_string(camera->position.z), Info_L);
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(basicShader);
     }
@@ -368,11 +366,6 @@ namespace OkasoEngine_Render
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
         glBindVertexArray(0);
-
-        for (unsigned int i = 0; i < textures.size(); i++)
-        {
-            InitTexture(textures[i].path.c_str(), &textures[i].id);
-        }
     }
 
     void Renderer::DrawMesh(unsigned int VAO, int sizeIndices, glm::vec3 color, glm::mat4x4 model, Material material, vector<Texture> textures, bool isUsingTexture)
@@ -380,7 +373,7 @@ namespace OkasoEngine_Render
         glBindVertexArray(VAO);
 
         if (textures.size() > 0)
-            glBindTexture(GL_TEXTURE_2D, textures[0].id); // Asumiendo una sola textura
+            glBindTexture(GL_TEXTURE_2D, *textures[0].id);
 
         glUseProgram(lightingShader);
 
@@ -528,8 +521,6 @@ namespace OkasoEngine_Render
 
         if (data)
         {
-            OkasoDebuger::OKE_Debug("GOOD :: INIT TEXTURE", Info_L);
-
             GLenum format;
 
             if (nrChannels == 1)
@@ -550,7 +541,7 @@ namespace OkasoEngine_Render
         }
         else
         {
-            OkasoDebuger::OKE_Debug("ERROR :: INIT TEXTURE", Error_L);
+            OkasoDebuger::OKE_Debug("ERROR :: INIT TEXTURE :: NULL DATA", Error_L);
         }
         stbi_image_free(data);
     }

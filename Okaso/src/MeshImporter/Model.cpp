@@ -7,13 +7,26 @@
 #include <../assimp/types.h>
 
 
+Model::~Model()
+{
+    
+}
+
 void Model::Draw()
 {
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].Draw();
+        meshes[i].Draw(renderer, model);
 }
 
-void Model::loadModel(std::string path)
+void Model::setNewTextures(const char* path, const char* type)
+{
+    for (Mesh& mesh : meshes)
+    {
+        mesh.SetNewTextures(path, type);
+    }
+}
+
+void Model::loadModel(const char* path)
 {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -23,7 +36,11 @@ void Model::loadModel(std::string path)
         return;
     }
 
-    directory = path.substr(0, path.find_last_of('/'));
+    string aux = path;
+    
+    aux = aux.substr(0, aux.find_last_of('/'));
+
+    directory = aux.c_str();
 
     processNode(scene->mRootNode, scene);
 }
@@ -41,14 +58,15 @@ void Model::processNode(aiNode* node, const aiScene* scene) {
     }
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+{
     std::vector<OkasoEngine_Utilities::Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<OkasoEngine_Utilities::Texture> textures;
 
     // Vértices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-        OkasoEngine_Utilities::Vertex vertex;
+        OkasoEngine_Utilities::Vertex vertex = OkasoEngine_Utilities::Vertex();
         glm::vec3 vector;
 
         // Posición
@@ -94,18 +112,19 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
 
-    return Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, textures, renderer);
 }
 
-std::vector<OkasoEngine_Utilities::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName) {
+std::vector<OkasoEngine_Utilities::Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, const char* typeName) {
     std::vector<OkasoEngine_Utilities::Texture> textures;
 
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
 
-        std::string path = std::string(str.C_Str());
-        path = directory + '/' + path;
+        string name = str.C_Str();
+        string dir = directory;
+        string path = dir + "/" + name;
 
         // Evitar cargar la misma textura más de una vez
         bool skip = false;
@@ -119,8 +138,8 @@ std::vector<OkasoEngine_Utilities::Texture> Model::loadMaterialTextures(aiMateri
 
         if (!skip)
         {
-            OkasoEngine_Utilities::Texture texture = OkasoEngine_Utilities::Texture(unsigned int(0),  typeName, path.c_str());
-            TextureImporter::InitTexture(path.c_str(), &texture.id);
+            OkasoEngine_Utilities::Texture texture = OkasoEngine_Utilities::Texture(typeName, path.c_str());
+            TextureImporter::InitTexture(path.c_str(), texture.id);
             textures.push_back(texture);
             textures_loaded.push_back(texture);
         }
