@@ -16,14 +16,21 @@ void Game::init()
 {
 	cube = new Cube();
 	cube->SetPosition(10.0f, 0, 0);
-	camera->distanceToTarget = 10.0f;
+	camera->distanceToTarget = 15.0f;
 
-	model = new Model("C:/Users/tomas/Escritorio/Okaso-Engine/Game/assets/Survival_BackPack_2/backpack.obj");
-	model->Scale(1.0f, 1.0f, 1.0f);
-	model->SetColor(1, 1, 1);
-	model->SetPosition(0, 0, 0);
+	modelA = new Model("C:/Users/tomas/Escritorio/Okaso-Engine/Game/assets/raygun-call-of-duty-zombies/low.fbx");
+	modelA->Scale(1.0f, 1.0f, 1.0f);
+	modelA->SetPosition(0, 0, 0);
 	
-	camera->target = model->GetPosition();
+	camera->target = modelA->GetPosition();
+
+	modelB = new Model("C:/Users/tomas/Escritorio/Okaso-Engine/Game/assets/the-iron-giant-franco-porte-petit/low.fbx");
+	modelB->Scale(1.0f, 1.0f, 1.0f);
+	modelB->SetPosition(20.0f, 0, 0);
+
+	modelC = new Model("C:/Users/tomas/Escritorio/Okaso-Engine/Game/assets/Survival_BackPack_2/backpack.obj");
+	modelC->Scale(1.0f, 1.0f, 1.0f);
+	modelC->SetPosition(30.0f, 0, 0);
 	
 	renderer->dirLight.direction = glm::vec3(0.0f, -90.0f, 0.0f);
 	renderer->dirLight.ambient = glm::vec3(0.2f, 0.3f, 0.2f);
@@ -53,11 +60,15 @@ void Game::init()
 void Game::update()
 {
 	cube->Draw();
-	model->Draw();
+	modelA->Draw();
+	modelB->Draw();
+	modelC->Draw();
 }
 
 void Game::exit()
 {
 	delete cube;
-	delete model;
+	delete modelA;
+	delete modelB;
+	delete modelC;
 }

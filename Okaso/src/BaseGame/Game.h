@@ -10,7 +10,9 @@ private:
     int windowWidth = 800;
     int windowHeight = 400;
     Cube* cube;
-    Model* model;
+    Model* modelA;
+    Model* modelB;
+    Model* modelC;
     
 public:
     Game(int windowWidth,int windowHeight);
