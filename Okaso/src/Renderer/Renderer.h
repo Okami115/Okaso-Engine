@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <vector>
+
 #include "../../libs/GLEW/Include/glew.h"
 #include "../Window/Window.h"
 #include "../Utils/Utils.h"
@@ -8,14 +10,13 @@
 #include "../Utils/Material.h"
 #include "../Utils/Light.h"
 
-
 namespace OkasoEngine_Render
 {
 #pragma region Default Values For Renderer creation
     static  OkasoEngine_Window::Window* DEFAULT_WINDOW = NULL;
     static  GLbitfield DEFAULT_MASK = GL_COLOR_BUFFER_BIT;
 #pragma endregion
-    static EXPORT class Renderer final
+    class EXPORT Renderer final
     {
     public:
         /// <summary>
@@ -64,7 +65,6 @@ namespace OkasoEngine_Render
         /// <para> VAO : Vertex Array Object
         /// </summary>
         void InitShape(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO);
-
         /// <summary>
         /// Renders a shape
         /// <para> VAO : Vertex Array Object
@@ -73,19 +73,19 @@ namespace OkasoEngine_Render
         /// <para> color : color of the shape
         /// </summary>
         void DrawShape(unsigned int* VAO, glm::mat4 model, int vertexCount, glm::vec3 color);
-        void Init3DEntity(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO,
-                          unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
-
+        
+        void Init3DEntity(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
         void Draw3DEntity(unsigned VAO, int sizeIndices, glm::vec3 color, glm::mat4x4 model, Material material, unsigned& texture, bool isUsingTexture);
-
+        
+        void InitMesh(unsigned int* VAO, unsigned int* VBO, unsigned int* EBO, vector<OkasoEngine_Utilities::Vertex> vertices, vector<unsigned int> indices, vector<OkasoEngine_Utilities::Texture> textures);
+        void DrawMesh(unsigned int VAO, int sizeIndices, glm::vec3 color, glm::mat4x4 model, Material material, vector<OkasoEngine_Utilities::Texture> textures, bool isUsingTexture);
+        
         void InitSprite(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, const char* path, unsigned int* texture);
-
-        void InitTextureBuffers(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, unsigned int* texture);
-
         void DrawSprite(unsigned int* VAO, glm::mat4 model, int elementsCount, glm::vec3 color, unsigned int* texture);
 
+        void InitTextureBuffers(float* vertex, int vertexCount, unsigned int* index, int indexSize, unsigned int* VBO, unsigned int* EBO, unsigned int* VAO, unsigned int* texture);
         void InitTexture(const char* path, unsigned int* texture);
-
+        
         /// <summary>
         /// Returns the current Renderer
         /// </summary>

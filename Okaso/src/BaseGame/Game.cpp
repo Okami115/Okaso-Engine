@@ -15,10 +15,15 @@ Game::~Game()
 void Game::init()
 {
 	cube = new Cube();
-	cube->SetColor(0, 0, 1);
-	cube->SetPosition(0, 0, 0);
-	camera->target = cube->GetPosition();
+	cube->SetPosition(10.0f, 0, 0);
 	camera->distanceToTarget = 3.0f;
+
+	model = new Model("C:/Users/tomas/Escritorio/Okaso-Engine/Game/assets/Survival_BackPack_2/backpack.obj");
+	model->Scale(10.0f, 10.0f, 10.0f);
+	model->SetPosition(0, 0, 0);
+	
+	camera->target = model->GetPosition();
+	
 	renderer->dirLight.direction = glm::vec3(0.0f, -90.0f, 0.0f);
 	renderer->dirLight.ambient = glm::vec3(0.2f, 0.3f, 0.2f);
 	renderer->dirLight.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -47,9 +52,11 @@ void Game::init()
 void Game::update()
 {
 	cube->Draw();
+	model->Draw();
 }
 
 void Game::exit()
 {
 	delete cube;
+	delete model;
 }

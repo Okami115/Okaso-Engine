@@ -2,7 +2,7 @@
 #  define EXPORT __declspec(dllexport)
 
 #include "OkasoDebuger.h"
-
+#include "../glm/glm.hpp"
 namespace OkasoEngine_Utilities
 {
 #pragma region Default Values For Position,UV,Color && Vertex creation
@@ -56,15 +56,29 @@ namespace OkasoEngine_Utilities
 
 	struct EXPORT Vertex
 	{
-		position pos;
-		UV uv;
-		Color color;
+		glm::vec3 Position;
+		glm::vec3 Normal;
+		glm::vec2 TexCoords;
 
-		Vertex(position pos = position(), UV uv = UV(), Color color = Color())
+		Vertex(glm::vec3 pos = glm::vec3(), glm::vec3 normal = glm::vec3(), glm::vec2 TexCoords = glm::vec3())
 		{
-			this->pos = pos;
-			this->uv = uv;
-			this->color = color;
+			this->Position = pos;
+			this->Normal = normal;
+			this->TexCoords = TexCoords;
+		}
+	};
+
+	struct EXPORT Texture
+	{
+		unsigned int id;
+		std::string type;
+		std::string path;
+
+		Texture(unsigned int id, std::string type, std::string path)
+		{
+			this->id = id;
+			this->type = type;
+			this->path = path;
 		}
 	};
 }
