@@ -60,12 +60,18 @@ namespace OkasoEngine_Utilities
 		glm::vec3 Position;
 		glm::vec3 Normal;
 		glm::vec2 TexCoords;
+		glm::vec3 Tangent;
+		glm::vec3 Bitangent;
+		int m_BoneIDs[4];
+		float m_Weights[4];
 		
-		Vertex(glm::vec3 pos = glm::vec3(), glm::vec3 normal = glm::vec3(), glm::vec2 TexCoords = glm::vec3())
+		Vertex(glm::vec3 pos = glm::vec3(), glm::vec3 normal = glm::vec3(), glm::vec2 TexCoords = glm::vec3(), glm::vec3 Tangent = glm::vec3(), glm::vec3 bitangent = glm::vec3())
 		{
 			this->Position = pos;
 			this->Normal = normal;
 			this->TexCoords = TexCoords;
+			this->Tangent = Tangent;
+			this->Bitangent = bitangent;
 		}
 	};
 

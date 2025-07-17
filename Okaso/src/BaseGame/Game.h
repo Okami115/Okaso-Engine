@@ -13,6 +13,10 @@ private:
     Model* modelA;
     Model* modelB;
     Model* modelC;
+    Model* modelD;
+
+    float lightPosX = 0.0f;
+    bool goToLeft = false;
     
 public:
     Game(int windowWidth,int windowHeight);

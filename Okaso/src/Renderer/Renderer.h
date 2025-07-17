@@ -9,6 +9,7 @@
 #include "../Camara/Camera.h"
 #include "../Utils/Material.h"
 #include "../Utils/Light.h"
+#include "../MeshImporter/ModelImporter.h"
 
 namespace OkasoEngine_Render
 {
@@ -98,12 +99,15 @@ namespace OkasoEngine_Render
         pointLight pointLight[1];
         spotLight spotLight;
 
+        ModelImporter* modelImporter;
+
     private:
         Camera* camera;
         OkasoEngine_Window::Window* GLFWW;
         unsigned int basicShader;
         unsigned int textureShader;
         unsigned int lightingShader;
+        unsigned int modelShader;
         static Renderer* rendererInstance;
         GLbitfield mask;
         glm::mat4 proj;

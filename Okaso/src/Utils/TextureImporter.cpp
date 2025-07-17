@@ -3,10 +3,10 @@
 #include "OkasoDebuger.h"
 #include "stb_image.h"
 
-void TextureImporter::InitTexture(const char* path, unsigned int* texture)
+void TextureImporter::InitTexture(const char* path, unsigned int* texture, bool invertTexture)
 {
     glGenTextures(1, texture);
-    glBindTexture(GL_TEXTURE_2D, *texture); 
+    glBindTexture(GL_TEXTURE_2D, *texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
@@ -18,6 +18,8 @@ void TextureImporter::InitTexture(const char* path, unsigned int* texture)
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
     int width, height, nrChannels;
+
+    stbi_set_flip_vertically_on_load(invertTexture);
 
     unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 

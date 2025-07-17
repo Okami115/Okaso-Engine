@@ -70,7 +70,7 @@ Cube::Cube()
 
     texture = new unsigned int;
 
-    renderer->Init3DEntity(vertexPositions, vertexSize, indices, indexSize, VBO, EBO, VAO, "C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/Texture.jpg", texture);
+    renderer->Init3DEntity(vertexPositions, vertexSize, indices, indexSize, VBO, EBO, VAO, "C:/Users/tomas/Escritorio/Okaso-Engine/Okaso/res/Assets/default material.png", texture);
 }
 
 Cube::~Cube()
